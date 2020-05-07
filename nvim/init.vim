@@ -68,7 +68,7 @@ Plug 'https://github.com/godlygeek/tabular'
 " { Just in case }
 "Plug 'chriskempson/base16-vim'
 "Plug 'tpope/vim-commentary'
-"Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 "Plug 'terryma/vim-multiple-cursors'
 "Plug 'https://github.com/vim-scripts/Tabmerge'
 "Plug 'https://github.com/sjl/gundo.vim'
@@ -161,7 +161,7 @@ set undodir=/tmp//
 
 """"" Vifm 
 " Vifm mapkeys
-map <leader>vv :Vifm<CR>
+map <leader>vi :Vifm<CR>
 map <leader>vv :VsplitVifm<CR>
 map <leader>vs :SplitVifm<CR>
 map <leader>vd :DiffVifm<CR>
@@ -183,10 +183,13 @@ let g:startify_custom_header = startify#center([
 "vim startify sessions
 let g:startify_session_dir = '~/.config/nvim/session'
 let g:startify_session_delete_buffers = 1
-let g:startify_change_to_vcs_root = 1
+"let g:startify_change_to_vcs_root = 1
 let g:startify_session_persistence = 1
 let g:startify_enable_special = 0
 "let g:startify_session_sort = 1
+
+"Map keys
+nmap <leader>ee :SClose<CR>
 
 " menus
 let g:startify_lists = [
@@ -404,10 +407,11 @@ set timeoutlen=300
 let g:which_key_map =  {}
 let g:which_key_map.v = {
       \ 'name' : '+Vifm' ,
-      \ 'v' : ['Vifm', 'Open file via vifm'],
-      \ 's' : ['VSplitVifm', 'VSplit file via vifm'],
+      \ 'i' : ['Vifm', 'Open file via vifm'],
+      \ 's' : ['VSplitVifm', 'Split file via vifm'],
       \ 'd' : ['DiffVifm', 'Diff files via vifm'],
       \ 't' : ['TabVifm', 'OpenTab files vifm'],
+	  \ 'v' : ['VSplitVifm', 'VSplit via vifm ']
       \ }
 
 let g:which_key_map.a = {
@@ -460,6 +464,7 @@ let g:which_key_map.e = {
 			\ 's' : 'Search prompt synonym',
 			\ 'S' : 'Search current synonym',
 			\ 'z' : 'FZF',
+			\ 'e' : "Exit Session",
 			\}
 
 " { Make life easier }
@@ -533,7 +538,7 @@ noremap <C-Right>	:vertical:resize +1<CR>
 
 
 " NERDTree plugin
-"noremap <Leader>n :NERDTreeToggle<CR>
+noremap <Leader>n :NERDTreeToggle<CR>
 
 " Vifm
 map <leader>vv :Vifm<CR>
@@ -547,7 +552,7 @@ map <leader>vt :TabVifm<CR>
 
 
 " reload vimrc
-nnoremap <Leader>rr :source ~/.vimrc<CR>
+"nnoremap <Leader>rr :source ~/.vimrc<CR>
 
 " hide search results
 map <Esc><Esc> :nohlsearch<CR>
