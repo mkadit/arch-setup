@@ -1,13 +1,13 @@
 
 
-"___  ___ _   __  ___      _ _ _   
-"|  \/  || | / / / _ \    | (_) |  
-"| .  . || |/ / / /_\ \ __| |_| |_ 
+"___  ___ _   __  ___      _ _ _
+"|  \/  || | / / / _ \    | (_) |
+"| .  . || |/ / / /_\ \ __| |_| |_
 "| |\/| ||    \ |  _  |/ _` | | __|
-"| |  | || |\  \| | | | (_| | | |_ 
+"| |  | || |\  \| | | | (_| | | |_
 "\_|  |_/\_| \_/\_| |_/\__,_|_|\__|
-                                  
-                                  
+
+
 
 
 " change leader key
@@ -25,7 +25,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""
 
 "Plugins folder
-call plug#begin('~/.config/nvim/plugged') 
+call plug#begin('~/.config/nvim/plugged')
 
 " { Files Management }
 Plug 'mhinz/vim-startify'
@@ -159,7 +159,7 @@ set undodir=/tmp//
 
 " { File Management }
 
-""""" Vifm 
+""""" Vifm
 " Vifm mapkeys
 map <leader>vi :Vifm<CR>
 map <leader>vv :VsplitVifm<CR>
@@ -233,10 +233,10 @@ map <Leader>gR :GRemove<CR>
 map <Leader>gD :GDelete<CR>
 
 "Open git tree
-nnoremap <leader>egt :Magit<CR>
+nnoremap <leader>eg :Magit<CR>
 
 "Open Undo tree
-nnoremap <leader>eut :UndotreeToggle<CR>
+nnoremap <leader>eu :UndotreeToggle<CR>
 
 " NERDTree ignore
 "let NERDTreeIgnore = ['\.pyc$', '\.class']
@@ -408,7 +408,7 @@ let g:which_key_map =  {}
 let g:which_key_map.v = {
       \ 'name' : '+Vifm' ,
       \ 'i' : ['Vifm', 'Open file via vifm'],
-      \ 's' : ['VSplitVifm', 'Split file via vifm'],
+      \ 's' : ['SplitVifm', 'Split file via vifm'],
       \ 'd' : ['DiffVifm', 'Diff files via vifm'],
       \ 't' : ['TabVifm', 'OpenTab files vifm'],
 	  \ 'v' : ['VSplitVifm', 'VSplit via vifm ']
@@ -457,21 +457,67 @@ let g:which_key_map.e = {
 			\ 'name' : '+etc',
 			\ 'c' : 'Compile document',
 			\ 'p' : 'Preview file',
-			\ 'ut' : ['UndotreeToggle', 'Open Undo Tree'],
-			\ 'gt' : ['Magit', 'Open Git Tree'],
+			\ 'u' : ['UndotreeToggle', 'Open Undo Tree'],
+			\ 'g' : ['Magit', 'Open Git Tree'],
 			\ 'd' : 'Search prompt word',
 			\ 'D' : 'Search current word',
 			\ 's' : 'Search prompt synonym',
 			\ 'S' : 'Search current synonym',
-			\ 'z' : 'FZF',
 			\ 'e' : "Exit Session",
+			\}
+
+let g:which_key_map.f = {
+			\ 'name' : '+FZF',
+			\ 'fi' : ['Files', 'Search for files'],
+			\ 'fbl' : ['Buffer', 'Search for buffer'],
+			\ 'fgl' : ['GFiles', 'Git list'],
+			\ 'fgs' : ['GFiles?', 'Git status'],
+			\ 'frg' : ['Rg', 'Search for content'],
+			\ 'flb' : ['Lines', 'Search for line in current file'],
+			\ 'fcb' : ['Fcb', 'Search for line in buffers'],
+			\ 'fm' : ['Marks', 'Search for marks'],
+			\ 'fw' : ['Windows', 'Search for windows/tabs'],
+			\ 'fhf' : ['History', 'Search file history'],
+			\ 'fch' : ['History:', 'Search command history'],
+			\ 'fsh' : ['History/', 'Search history'],
+			\ 'fsn' : ['Snippets', 'Search for Snippets'],
+			\ 'fco' : ['Commits', 'Search Colourscheme'],
+			\ 'fcc' : ['Commits', 'Search Commits in file'],
+			\ 'fbc' : ['BCommits', 'Search Commits in buffers'],
+			\ 'fa' : ['Commands', 'Search Action/Command'],
+			\ 'fM' : ['Maps', 'Search for mappings'],
 			\}
 
 " { Make life easier }
 """"" FZF
 " fzf plugin
 set rtp+=~/.fzf
-noremap <leader>ez :FZF<CR>
+" Rg Setting
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+  \   <bang>0)
+"fzf mappings
+noremap <leader>fi :Files<CR>
+nnoremap <leader>fbl :Buffer<CR>
+nnoremap <leader>fgl :GFiles<CR>
+nnoremap <leader>fgs :GFiles?<CR>
+nnoremap <leader>frg :Rg<CR>
+nnoremap <leader>flb :Lines<CR>
+nnoremap <leader>fcb :BLines<CR>
+nnoremap <leader>fm :Marks<CR>
+nnoremap <leader>fw :Windows<CR>
+nnoremap <leader>fhf :History<CR>
+nnoremap <leader>fch :History:<CR>
+nnoremap <leader>fsh :History/<CR>
+nnoremap <leader>fsn :Snippets<CR>
+nnoremap <leader>fcc :Commits<CR>
+nnoremap <leader>fco :Colors<CR>
+nnoremap <leader>fbc :BCommits<CR>
+nnoremap <leader>fa :Commands<CR>
+nnoremap <leader>fM :Maps<CR>
 """"" vim sneak
 let g:sneak#label = 1
 "Sneak map
@@ -511,7 +557,7 @@ let g:lightline.component_type = {
 \}
 
 """"""""""""""""""""""""""""""""""""""""""""""
-" Mapping
+" System Mapping
 """"""""""""""""""""""""""""""""""""""""""""""
 " change indent in visual mode
 vnoremap > >gv
@@ -539,13 +585,6 @@ noremap <C-A-Right>	:vertical:resize +1<CR>
 
 " NERDTree plugin
 noremap <Leader>n :NERDTreeToggle<CR>
-
-" Vifm
-map <leader>vv :Vifm<CR>
-map <leader>vv :VsplitVifm<CR>
-map <leader>vs :SplitVifm<CR>
-map <leader>vd :DiffVifm<CR>
-map <leader>vt :TabVifm<CR>
 
 "netrw
 "noremap <Leader>n :Vexplore<CR>
@@ -601,8 +640,8 @@ autocmd BufRead,BufNewFile *.tex set filetype=tex
 command! -nargs=* RunSilent
       \ | execute ':silent !'.'<args>'
 	  \ | execute ':redraw!'
-nmap <Leader>pp :RunSilent pandoc -o /tmp/vim-pandoc-out.pdf "%"<CR>
-nmap <Leader>pe :RunSilent evince /tmp/vim-pandoc-out.pdf<CR>
+"nmap <Leader>pp :RunSilent pandoc -o /tmp/vim-pandoc-out.pdf "%"<CR>
+"nmap <Leader>pe :RunSilent evince /tmp/vim-pandoc-out.pdf<CR>
 
 augroup extension
 	au!
