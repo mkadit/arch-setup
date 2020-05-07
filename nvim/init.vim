@@ -531,10 +531,10 @@ noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
 
 " resize splits with arrow keys
-noremap <C-Left>	:vertical:resize -1<CR>
-noremap <C-Down>	:resize +1<CR>
-noremap <C-Up>		:resize -1<CR>
-noremap <C-Right>	:vertical:resize +1<CR>
+noremap <C-A-Left>	:vertical:resize -1<CR>
+noremap <C-A-Down>	:resize +1<CR>
+noremap <C-A-Up>		:resize -1<CR>
+noremap <C-A-Right>	:vertical:resize +1<CR>
 
 
 " NERDTree plugin
