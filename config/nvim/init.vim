@@ -41,9 +41,12 @@ Plug 'farconics/victionary'
 Plug 'https://github.com/plasticboy/vim-markdown'
 " { Intellisense }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" { Documentation }
-Plug 'vimwiki/vimwiki'
+"Plug 'ycm-core/YouCompleteMe'
+" { Documentation / Task management }
+"Plug 'vimwiki/vimwiki'
 Plug 'liuchengxu/vim-which-key'
+Plug 'kkoomen/vim-doge'
+Plug 'https://github.com/itchyny/calendar.vim'
 " { Make life easier}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -54,6 +57,11 @@ Plug 'tpope/vim-repeat'
 Plug 'turbio/bracey.vim'
 Plug 'mattn/emmet-vim'
 Plug 'justinmk/vim-sneak'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'https://github.com/ap/vim-css-color'
+"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 " { Aesthetics }
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
@@ -62,13 +70,24 @@ Plug 'rafi/awesome-vim-colorschemes'
 Plug 'kjwon15/vim-transparent'
 Plug 'ryanoasis/vim-devicons'
 Plug 'https://github.com/godlygeek/tabular'
+Plug 'voldikss/vim-floaterm'
+" { Themes enhanced }
+Plug 'shinchu/lightline-gruvbox.vim'
+Plug 'sainnhe/edge'
+Plug 'sainnhe/gruvbox-material'
+"Plug 'https://github.com/lifepillar/vim-gruvbox8'
 " { Just in case }
 "Plug 'chriskempson/base16-vim'
 "Plug 'tpope/vim-commentary'
-Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/nerdtree'
 "Plug 'terryma/vim-multiple-cursors'
 "Plug 'https://github.com/vim-scripts/Tabmerge'
 "Plug 'https://github.com/sjl/gundo.vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'artur-shaik/vim-javacomplete2'
+"Plug 'https://github.com/vim-scripts/utl.vim'
+"Plug 'jceb/vim-orgmode'
+
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -76,9 +95,31 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""
 syntax enable
 filetype plugin indent on
-colorscheme onedark
+if has('termguicolors')
+  set termguicolors
+endif
+"set background=dark
+
+""" For Gruvbox-material (only works if put above colorscheme)
+"let g:gruvbox_material_background = 'soft'
+"let g:gruvbox_material_enable_italic = 1
+"let g:gruvbox_material_enable_bold = 1
+"let g:gruvbox_material_transparent_background = 1
+"let g:gruvbox_material_diagnostic_line_highlight = 1
+"let g:gruvbox_material_better_performance = 1
+"""
+""" For edge (only works if put above colorscheme)
+let g:edge_style = 'aura'
+let g:edge_enable_italic = 1
+let g:edge_disable_italic_comment = 1
+let g:edge_transparent_background = 1
+let g:edge_diagnostic_line_highlight = 1
+let g:edge_better_performance = 1
+"""
+
+"hi normal guibg=NONE ctermbg=NONE
+colorscheme edge
 set nocompatible
-set termguicolors
 set t_ut=
 set ttyfast
 set lazyredraw
@@ -165,7 +206,7 @@ map <leader>vt :TabVifm<CR>
 
 """"" Startify
 " Copyright
-let g:startify_custom_header = startify#center([
+let g:ascii = [
 			\'_______  _        _______  ______  __________________',
 			\'(       )| \    /\(  ___  )(  __  \ \__   __/\__   __/',
 			\'| () () ||  \  / /| (   ) || (  \  )   ) (      ) (   ',
@@ -174,15 +215,21 @@ let g:startify_custom_header = startify#center([
 			\'| |   | ||  ( \ \ | (   ) || |   ) |   | |      | |   ',
 			\'| )   ( ||  /  \ \| )   ( || (__/  )___) (___   | |   ',
 			\'|/     \||_/    \/|/     \|(______/ \_______/   )_(   ',
-			\])
+			\'
+            \']
+
+let g:startify_custom_header =
+            \'startify#center(g:ascii +startify#fortune#quote())'
 
 "vim startify sessions
 let g:startify_session_dir = '~/.config/nvim/session'
 let g:startify_session_delete_buffers = 1
-"let g:startify_change_to_vcs_root = 1
+let g:startify_change_to_vcs_root = 1
 let g:startify_session_persistence = 1
 let g:startify_enable_special = 0
 "let g:startify_session_sort = 1
+let g:startify_change_to_dir = 1
+
 
 "Map keys
 nmap <leader>ee :SClose<CR>
@@ -234,9 +281,16 @@ nnoremap <leader>eg :Magit<CR>
 "Open Undo tree
 nnoremap <leader>eu :UndotreeToggle<CR>
 
+
+""" NERDTree plugin
+"noremap <Leader>n :NERDTreeToggle<CR>
 " NERDTree ignore
 "let NERDTreeIgnore = ['\.pyc$', '\.class']
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+""" coc-explorer
+nmap <leader>n :CocCommand explorer<CR>
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 " { Syntax and highlighting }
 
@@ -275,6 +329,12 @@ nmap <leader>eS <Plug>(victionary#synonym_under_cursor)
 
 """""vim markdown
 let g:vim_markdown_no_extensions_in_markdown = 1
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_frontmatter = 1
+let g:tex_conceal = ""
+let g:vim_markdown_math = 1
+let g:vim_markdown_new_list_item_indent = 0
+
 
 " { Intellisense }
 " Use <c-space> to trigger completion.
@@ -372,6 +432,8 @@ nnoremap <silent> mj  :<C-u>CocNext<CR>
 nnoremap <silent> mk  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> mp  :<C-u>CocListResume<CR>
+" Show extension market
+map <silent> mm :<C-u>CocList marketplace<CR>
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -394,13 +456,21 @@ endfunction
 " Ensure files are read as what I want:
 let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 "map <leader>v :VimwikiIndex
-let g:vimwiki_list = [{'path': '~/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [{'path': '~/Documents/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
+
+""" vim-doge
+let g:doge_mapping = '<Leader>ea'
 
 """"" vim-which-key
+nnoremap <silent> <leader> :<c-u>WhichKey ','<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual ','<CR>
 call which_key#register(',', "g:which_key_map")
 set timeoutlen=300
 " Define prefix dictionary
 let g:which_key_map =  {}
+let g:which_key_map.n ={
+            \ 'name' : 'Explorer'
+            \}
 let g:which_key_map.v = {
       \ 'name' : '+Vifm' ,
       \ 'i' : ['Vifm', 'Open file via vifm'],
@@ -438,7 +508,7 @@ let g:which_key_map.m = {
 	  \ 'gy' : ['coc-type-definition', 'Go to type definition'],
 	  \ 'gi' : ['coc-implementation', 'Go to implementation'],
 	  \ 'gr' : ['coc-references', 'Go to references'],
-	  \ 'h' : 'show documentation',
+	  \ 'h' : ['show documentation' , 'show documentation'],
 	  \ 'rn' : ['coc-rename', 'rename current word'],
 	  \ 'a' : ['CocList diagnostic', 'coc show all diagnostic'],
 	  \ 'e' : ['CocList extension', 'coc manage extension'],
@@ -447,6 +517,7 @@ let g:which_key_map.m = {
 	  \ 'j' : ['CocNext', 'do default action for next item'],
 	  \ 'k' : ['CocPrev', 'do default action for previous item'],
 	  \ 'p' : ['CocListResume', 'resume latest coc list'],
+      \ 'm' : ['Marketplace', 'Search for coc extensions']
       \ }
 
 let g:which_key_map.e = {
@@ -460,29 +531,42 @@ let g:which_key_map.e = {
 			\ 's' : 'Search prompt synonym',
 			\ 'S' : 'Search current synonym',
 			\ 'e' : "Exit Session",
+            \ 'a' : ['DogeGenerate', 'Generate documentation'],
+            \ 'f' : 'Open configs'
 			\}
 
 let g:which_key_map.f = {
 			\ 'name' : '+FZF',
-			\ 'fi' : ['Files', 'Search for files'],
-			\ 'fbl' : ['Buffer', 'Search for buffer'],
-			\ 'fgl' : ['GFiles', 'Git list'],
-			\ 'fgs' : ['GFiles?', 'Git status'],
-			\ 'frg' : ['Rg', 'Search for content'],
-			\ 'flb' : ['Lines', 'Search for line in current file'],
-			\ 'fcb' : ['Fcb', 'Search for line in buffers'],
-			\ 'fm' : ['Marks', 'Search for marks'],
-			\ 'fw' : ['Windows', 'Search for windows/tabs'],
-			\ 'fhf' : ['History', 'Search file history'],
-			\ 'fch' : ['History:', 'Search command history'],
-			\ 'fsh' : ['History/', 'Search history'],
-			\ 'fsn' : ['Snippets', 'Search for Snippets'],
-			\ 'fco' : ['Commits', 'Search Colourscheme'],
-			\ 'fcc' : ['Commits', 'Search Commits in file'],
-			\ 'fbc' : ['BCommits', 'Search Commits in buffers'],
-			\ 'fa' : ['Commands', 'Search Action/Command'],
-			\ 'fM' : ['Maps', 'Search for mappings'],
+			\ 'i' : ['Files', 'Search for files'],
+			\ 'bl' : ['Buffer', 'Search for buffer'],
+			\ 'gl' : ['GFiles', 'Git list'],
+			\ 'gs' : ['GFiles?', 'Git status'],
+			\ 'rg' : ['Rg', 'Search for content'],
+			\ 'lb' : ['Lines', 'Search for line in all buffers file'],
+			\ 'cb' : ['Fcb', 'Search for line in active buffers'],
+			\ 'm' : ['Marks', 'Search for marks'],
+			\ 'w' : ['Windows', 'Search for windows/tabs'],
+			\ 'hf' : ['History', 'Search file history'],
+			\ 'hc' : ['History:', 'Search command history'],
+			\ 'hs' : ['History/', 'Search history'],
+			\ 's' : ['Snippets', 'Search for Snippets'],
+			\ 'co' : ['Commits', 'Search Colourscheme'],
+			\ 'cc' : ['Commits', 'Search Commits in file'],
+			\ 'bc' : ['BCommits', 'Search Commits in buffers'],
+			\ 'a' : ['Commands', 'Search Action/Command'],
+			\ 'M' : ['Maps', 'Search for mappings'],
 			\}
+
+let g:which_key_map.t = {
+            \ 'name' : '+terminal',
+            \ 'g' : [':FloatermNew lazygit', 'lazygit'],
+            \ 'h' : [':FloatermNew htop', 'htop'],
+            \ 'c' : [':FloatermNew cmus', 'cmus'],
+            \ 'f' : [':FloatermNew fzf', 'fzf $HOME'],
+            \ 't' : [':FloatermNew', 'terminal'],
+            \ 'v' : [':FloatermNew vifm', 'vifm'],
+            \ '<F2>' : [':FloatermToggle', 'FloatermToggle'],
+            \}
 
 " { Make life easier }
 """"" FZF
@@ -506,9 +590,9 @@ nnoremap <leader>fcb :BLines<CR>
 nnoremap <leader>fm :Marks<CR>
 nnoremap <leader>fw :Windows<CR>
 nnoremap <leader>fhf :History<CR>
-nnoremap <leader>fch :History:<CR>
-nnoremap <leader>fsh :History/<CR>
-nnoremap <leader>fsn :Snippets<CR>
+nnoremap <leader>fhc :History:<CR>
+nnoremap <leader>fhs :History/<CR>
+nnoremap <leader>fs :Snippets<CR>
 nnoremap <leader>fcc :Commits<CR>
 nnoremap <leader>fco :Colors<CR>
 nnoremap <leader>fbc :BCommits<CR>
@@ -519,20 +603,47 @@ let g:sneak#label = 1
 "Sneak map
 map f <Plug>Sneak_s
 map F <Plug>Sneak_S
+"""" vim-snippets
+let g:UltiSnipsExpandTrigger="<A-tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+"Vim-markdown preview
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {},
+    \ 'content_editable': v:false
+    \ }
+let g:mkdp_browser = 'google-chrome-stable'
+
 
 " { Aesthetics }
 """"" lightline
 let g:lightline = {
-  \	'colorscheme': 'onedark',
+  \	'colorscheme': 'edge',
   \     'active': {
-  \         'left': [['mode', 'paste' ], ['gitbranch','readonly', 'filename', 'modified']],
+  \         'left': [['mode', 'paste' ], ['fugitive','readonly'], ['filename', 'modified']],
   \         'right': [['lineinfo'], ['percent'], ['charvaluehex','fileformat', 'fileencoding']]
   \     },
   \	'component_function': {
-  \		'gitbranch': 'fugitive#head',
-  \		'charavaluehex': '0x%B'
+  \     'fugitive': 'LightlineFugitive',
+  \     'readonly': 'LightlineReadonly',
+  \     'modified': 'LightlineModified',
+  \     'fileformat': 'LightlineFileFormat',
+  \     'filetype': 'LightlineFileType'
   \
   \		},
+  \'component': {
+  \     'lineinfo': ' %3l:%-2v',
+  \     'filename': '%<%f'
+  \     },
   \ }
 
 let g:lightline.separator = {
@@ -553,6 +664,74 @@ let g:lightline.component_type = {
 \}
 let g:lightline#bufferline#enable_devicons = 1
 let g:lightline#bufferline#filename_modifier = ':te'
+
+""" Tmuxline
+let g:tmuxline_preset = {
+    \'a'    : '#S',
+    \'b'    : '%R',
+    \'c'    : [ '#{sysstat_mem} #[fg=blue]\ufa51#{upload_speed}' ],
+    \'win'  : [ '#I', '#W' ],
+    \'cwin' : [ '#I', '#W', '#F' ],
+    \'x'    : [ "#[fg=blue]#{download_speed} \uf6d9 #{sysstat_cpu}" ],
+    \'y'    : [ '%a' ],
+    \'z'    : '#H #{prefix_highlight}'
+    \}
+let g:tmuxline_separators = {
+    \ 'left' : "\ue0bc",
+    \ 'left_alt': "\ue0bd",
+    \ 'right' : "\ue0ba",
+    \ 'right_alt' : "\ue0bd",
+    \ 'space' : ' '}
+
+""" Floaterm
+let g:floaterm_gitcommit='floaterm'
+let g:floaterm_autoinsert=1
+let g:floaterm_width=0.8
+let g:floaterm_height=0.8
+let g:floaterm_wintitle=0
+let g:floaterm_autoclose=1
+
+"Floater Keybind
+nnoremap <leader>tg :FloatermNew lazygit
+nnoremap <leader>th :FloatermNew htop
+nnoremap <leader>tt :FloatermNew
+nnoremap <leader>tc :FloatermNew cmus
+nnoremap <leader>tf :FloatermNew fzf
+nnoremap <leader>tv :FloatermNew vifm
+let g:floaterm_keymap_toggle ='<F2>'
+
+function! LightlineModified()
+  return &modified ? '●' : ''
+endfunction
+
+function! LightlineReadonly()
+  return &readonly ? '' : ''
+endfunction
+
+function! LightlineFugitive()
+  if exists('*fugitive#head')
+    let branch = fugitive#head()
+    return branch !=# '' ? ' '.branch : ''
+  endif
+  return fugitive#head()
+endfunction
+
+function! LightlineFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
+
+function! LightlineFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+
+" autoreload
+command! LightlineReload call LightlineReload()
+
+function! LightlineReload()
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
+endfunction
 """"""""""""""""""""""""""""""""""""""""""""""
 " System Mapping
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -576,19 +755,19 @@ noremap <C-l> <C-w>l
 " resize splits with arrow keys
 noremap <C-A-Left>	:vertical:resize -1<CR>
 noremap <C-A-Down>	:resize +1<CR>
-noremap <C-A-Up>		:resize -1<CR>
+noremap <C-A-Up>	:resize -1<CR>
 noremap <C-A-Right>	:vertical:resize +1<CR>
 
-
-" NERDTree plugin
-noremap <Leader>n :NERDTreeToggle<CR>
+" Close buffer
+nnoremap <Leader>bd :bd<CR>
 
 "netrw
 "noremap <Leader>n :Vexplore<CR>
 
 
 " reload vimrc
-"nnoremap <Leader>rr :source ~/.vimrc<CR>
+nnoremap <Leader>re :e ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>rr :so $MYVIMRC
 
 " hide search results
 map <Esc><Esc> :nohlsearch<CR>
@@ -607,11 +786,13 @@ map <Leader>gD :GDelete<CR>
 " YouCompleteMe
 "map <Leader>gt :YcmCompleter GoTo<CR>
 
-" Tabs
+" Buffers and Tabs
 nnoremap <C-left> :bprevious<CR>
 nnoremap <C-right> :bnext<CR>
+nnoremap <C-n> :bprevious<CR>
+nnoremap <C-m> :bnext<CR>
 nnoremap <C-S-left> :tabprevious<CR>
-nnoremap <C-S-right> :tabbnext<CR>
+nnoremap <C-S-right> :tabnext<CR>
 nnoremap <silent> <A-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 "nnoremap <C-m> :Tabmerge right<CR>
@@ -622,6 +803,9 @@ map <leader>ec :w! \| !compiler <c-r>%<CR>
 
 " Open corresponding .pdf/.html or preview
 map <leader>ep :!opout <c-r>%<CR><CRj
+
+" Open configs
+map <leader>ef :SLoad configs<CR>
 
 " Open bibliography file in split
 "map <leader>eb :vsp<space>$BIB<CR>
@@ -642,42 +826,50 @@ command! -nargs=* RunSilent
 "nmap <Leader>pp :RunSilent pandoc -o /tmp/vim-pandoc-out.pdf "%"<CR>
 "nmap <Leader>pe :RunSilent evince /tmp/vim-pandoc-out.pdf<CR>
 
-augroup extension
-	au!
-	" force indentation
-	autocmd BufRead,BufNewFile *.py setlocal sw=4 ts=4 sts=4 expandtab
-	autocmd BufRead,BufNewFile *.html,*.css,*.js,*.jsx setlocal sw=2 ts=2 sts=2 expandtab
-	autocmd BufRead,BufNewFile *.md setlocal sw=2 ts=2 sts=2 expandtab
-	" force javascriptreact to javascript
-	autocmd BufRead,BufNewFile *.jsx,*js setlocal filetype=javascript
-augroup end
+"augroup extension
+	"au!
+	"" force indentation
+	"autocmd BufRead,BufNewFile *.py setlocal sw=4 ts=4 sts=4 expandtab
+	"autocmd BufRead,BufNewFile *.html,*.css,*.js,*.jsx setlocal sw=2 ts=2 sts=2 expandtab
+	"autocmd BufRead,BufNewFile *.md setlocal sw=2 ts=2 sts=2 expandtab
+	"" force javascriptreact to javascript
+	"autocmd BufRead,BufNewFile *.jsx,*js setlocal filetype=javascript
+"augroup end
 
 augroup postWrite
 	au!
 	" auto reload vimrc
-	autocmd BufWritePost .vimrc source ~/.vimrc
+	autocmd BufWritePost init.vim so $MYVIMRC
 	" groff pdf
 	autocmd BufWritePost *.me !groff -Tps -me '%' > '%:r.pdf'
 	" xrdb autoload .Xresources
 	autocmd BufWritePost .Xresources silent !xrdb ~/.Xresources
 augroup end
 
-aug i3config_ft_detection
-  au!
-  au BufNewFile,BufRead ~/.config/i3/config set ft=i3config
-aug end
+"aug i3config_ft_detection
+  "au!
+  "au BufNewFile,BufRead ~/.config/i3/config set ft=i3config
+"aug end
+
+
 
 inoremap <C-v> <ESC>"*p
 vnoremap <C-c> "+y
 vnoremap <C-d> "+d
 
 "" Compile document
-"map <leader>c :w! \| !compiler <c-r>%<CR>
+map <leader>pc :w! \| !compiler <c-r>%<CR>
 
 " Open corresponding .pdf/.html or preview
-"map <leader>p :!opout <c-r>%<CR><CR>
+map <leader>pp :!opout <c-r>%<CR><CR>
 "autocmd VimEnter * if !argc() | Explore | endif
 "autocmd VimEnter * if isdirectory(expand('<afile>')) | Explore | endif
 
-nnoremap <silent> <leader> :<c-u>WhichKey ','<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual ','<CR>
+" Automatically change the current directory
+"autocmd BufEnter * silent! lcd %:p:h
+
+"autocmd FileType java setlocal omnifunc=javacomplete#Complete
+"nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+
+let g:coc_node_path = '/usr/bin/node'
+map <F3> <C-o><Plug>VimyouautocorrectUndo

@@ -1,0 +1,78 @@
+#!/bin/sh
+
+# Variables
+QPAS='cat <(pacman -Si {1}) <(pacman -Fl {1} | awk "{print \$2}")'
+QYAS='cat <(yay -Si {1}) <(yay -Fl {1} | awk "{print \$2}")'
+QPAR='cat <(pacman -Qi {1}) <(pacman -Fl {1} | awk "{print \$2}")'
+QYAR='cat <(yay -Qi {1}) <(yay -Fl {1} | awk "{print \$2}")'
+
+# Use neovim for vim if present.
+command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
+
+
+command -v vifm >/dev/null && alias vifm="vifmrun"
+
+alias \
+	lcl="leetcode list" \
+	lcg="leetcode show -gxe" \
+	lcp="leetcode show" \
+	lct="leetcode test" \
+	lcs="leetcode submit"
+
+# Verbosity and settings that you pretty much just always are going to want.
+alias \ cp="cp -iv" \
+	mv="mv -iv" \
+	rm="rm -vI" \
+	mkd="mkdir -pv" \
+	yt="youtube-dl --add-metadata -i" \
+	yta="yt -x -f bestaudio/best" \
+	ffmpeg="ffmpeg -hide_banner" \
+    br="br -FsT"\
+    tmn="tmux new -s"\
+    tma="tmux a -t"\
+    tmka="tmux kill-session -a"\
+    tmkt="tmux kill-session -t"\
+    tmmw="tmux move-window -t"
+
+# Colorize commands when possible.
+alias \
+	ls="ls -hN --color=auto --group-directories-first" \
+	grep="grep --color=auto" \
+	diff="diff --color=auto" \
+	ccat="highlight --out-format=ansi"
+
+# These common commands are just too long! Abbreviate them.
+alias \
+	ka="killall" \
+	g="git" \
+	trem="transmission-remote" \
+	YT="youtube-viewer" \
+	sdn="sudo shutdown -h now" \
+	f="$FILE" \
+	e="$EDITOR" \
+	v="$EDITOR" \
+	p="sudo pacman" \
+	xi="sudo xbps-install" \
+	xr="sudo xbps-remove -R" \
+	xq="xbps-query" \
+	z="zathura"\
+	ll="ls -l"
+
+alias \
+	magit="nvim -c MagitOnly" \
+	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" \
+	weath="less -S ${XDG_DATA_HOME:-$HOME/.local/share}/weatherreport" \
+	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
+    ytdlm="youtube-dl -f bestaudio --extract-audio --audio-format mp3 -o '~/Music/%(title)s.%(ext)s'" \
+    ytdlv="youtube-dl -f bestvideo -o '%(title)s.%(ext)s'" \
+    pdcd="podcast-dl-linux-x64" \
+	scim="sc-im" \
+	jvcfx="javac --module-path $PATH_TO_FX --add-modules ALL-MODULE-PATH"\
+	jvrfx="java --module-path $PATH_TO_FX --add-modules ALL-MODULE-PATH"\
+	tpdf="libreoffice --headless --invisible --convert-to pdf"\
+    pas='pacman -Slq | fzf -m --preview ${QPAS} | xargs -ro sudo pacman -S'\
+    yas='yay -Slq | fzf -m --preview ${QYAS} | xargs -ro  yay -S'\
+    par='pacman -Qqe | fzf -m --preview ${QPAR} | xargs -ro sudo pacman -Rns'\
+    yar='yay -Qqe | fzf -m --preview ${QYAR} | xargs -ro  yay -Rns'\
+    rct='rclone copy --update --verbose --transfers 30 --checkers 8 --contimeout 60s --timeout 300s --retries 3 --low-level-retries 10 --stats 1s' \
+   vbg='xwinwrap -ov -fs -fdt -ni -b -nf -un -o 1.0 -debug -- mpv -wid WID --loop --no-audio'

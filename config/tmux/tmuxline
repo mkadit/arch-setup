@@ -1,0 +1,21 @@
+# This tmux statusbar config was created by tmuxline.vim
+# on Wed, 07 Oct 2020
+
+set -g status-justify "centre"
+set -g status "on"
+set -g status-left-style "none"
+set -g message-command-style "fg=colour250,bg=colour238"
+set -g status-right-style "none"
+set -g pane-active-border-style "fg=colour110"
+set -g status-style "none,bg=colour236"
+set -g message-style "fg=colour250,bg=colour238"
+set -g pane-border-style "fg=colour238"
+set -g status-right-length "100"
+set -g status-left-length "100"
+setw -g window-status-activity-style "none,fg=colour110,bg=colour236"
+setw -g window-status-separator ""
+setw -g window-status-style "none,fg=colour250,bg=colour236"
+set -g status-left "#[fg=colour235,bg=colour110,bold] #S #[fg=colour110,bg=colour238,nobold,nounderscore,noitalics]#[fg=colour250,bg=colour238] %R #[fg=colour238,bg=colour236,nobold,nounderscore,noitalics]#[fg=colour250,bg=colour236] #{sysstat_mem} #[fg=blue]祝#{upload_speed} #[fg=colour236,bg=colour236,nobold,nounderscore,noitalics]"
+set -g status-right "#[fg=colour236,bg=colour236,nobold,nounderscore,noitalics]#[fg=colour250,bg=colour236] #[fg=blue]#{download_speed}  #{sysstat_cpu} #[fg=colour238,bg=colour236,nobold,nounderscore,noitalics]#[fg=colour250,bg=colour238] %a #[fg=colour110,bg=colour238,nobold,nounderscore,noitalics]#[fg=colour235,bg=colour110,bold] #H #{prefix_highlight} "
+setw -g window-status-format "#[fg=colour236,bg=colour236,nobold,nounderscore,noitalics]#[default] #I  #W #[fg=colour236,bg=colour236,nobold,nounderscore,noitalics]"
+setw -g window-status-current-format "#[fg=colour236,bg=colour238,nobold,nounderscore,noitalics]#[fg=colour250,bg=colour238] #I  #W  #F #[fg=colour238,bg=colour236,nobold,nounderscore,noitalics]"
