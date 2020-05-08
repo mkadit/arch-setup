@@ -1,12 +1,9 @@
-
-
 "___  ___ _   __  ___      _ _ _
 "|  \/  || | / / / _ \    | (_) |
 "| .  . || |/ / / /_\ \ __| |_| |_
 "| |\/| ||    \ |  _  |/ _` | | __|
 "| |  | || |\  \| | | | (_| | | |_
 "\_|  |_/\_| \_/\_| |_/\__,_|_|\__|
-
 
 
 
@@ -59,12 +56,12 @@ Plug 'mattn/emmet-vim'
 Plug 'justinmk/vim-sneak'
 " { Aesthetics }
 Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
 Plug 'edkolev/tmuxline.vim'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'kjwon15/vim-transparent'
 Plug 'ryanoasis/vim-devicons'
 Plug 'https://github.com/godlygeek/tabular'
-
 " { Just in case }
 "Plug 'chriskempson/base16-vim'
 "Plug 'tpope/vim-commentary'
@@ -102,7 +99,7 @@ set clipboard+=unnamedplus
 set splitbelow splitright
 
 " set defautl tabs to have 4 spaces
-set sw=4 ts=4 sts=4 noexpandtab autoindent
+set sw=4 ts=4 sts=4 expandtab smarttab autoindent
 " show the matching part of the pair for [] {} and ()
 set showmatch
 " enable all Python syntax highlighting features
@@ -121,7 +118,7 @@ set number relativenumber
 
 " Enable autocomplete
 set wildmenu
-set wildmode=longest:list,full
+set wildmode=longest:full,full
 
 " Set new split below or right
 set splitbelow splitright
@@ -142,10 +139,9 @@ set hlsearch
 set incsearch
 
 " Show tab bar
-"Plug 'PotatoesMaster/i3-vim-syntax'
-"Plug 'PotatoesMaster/i3-vim-syntax'
-set tabline=2
+set showtabline=2
 
+set noshowmode
 " tell vim where to put swap files
 "set dir=~/.swapdir
 "set directory^=$HOME/.vim/swap//
@@ -540,22 +536,23 @@ let g:lightline = {
   \ }
 
 let g:lightline.separator = {
-\   'left': '', 'right': ''
+\   'left': '', 'right': '',
 \}
 let g:lightline.subseparator = {
-\   'left': '', 'right': ''
+\   'left': '', 'right': '',
 \}
-"let g:lightline.tabline = {
-"\   'left': [['buffers']],
-"\   'right': [['close']]
-"\}
+let g:lightline.tabline = {
+\   'left': [['buffers']],
+\   'right': [['close']],
+\}
 let g:lightline.component_expand = {
-\   'buffers': 'lightline#bufferline#buffers'
+\   'buffers': 'lightline#bufferline#buffers',
 \}
 let g:lightline.component_type = {
-\   'buffers': 'tabsel'
+\   'buffers': 'tabsel',
 \}
-
+let g:lightline#bufferline#enable_devicons = 1
+let g:lightline#bufferline#filename_modifier = ':te'
 """"""""""""""""""""""""""""""""""""""""""""""
 " System Mapping
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -611,8 +608,10 @@ map <Leader>gD :GDelete<CR>
 "map <Leader>gt :YcmCompleter GoTo<CR>
 
 " Tabs
-nnoremap <C-left> :tabprevious<CR>
-nnoremap <C-right> :tabnext<CR>
+nnoremap <C-left> :bprevious<CR>
+nnoremap <C-right> :bnext<CR>
+nnoremap <C-S-left> :tabprevious<CR>
+nnoremap <C-S-right> :tabbnext<CR>
 nnoremap <silent> <A-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 "nnoremap <C-m> :Tabmerge right<CR>
