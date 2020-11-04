@@ -8,7 +8,7 @@
 
 
 " change leader key
-let g:mapleader=","
+let g:mapleader=" "
 
 if ! filereadable(expand('~/.config/nvim/autoload/plug.vim'))
 	echo "Downloading junegunn/vim-plug to manage plugins..."
@@ -30,12 +30,13 @@ Plug 'vifm/vifm.vim'
 " {Version Control }
 Plug 'jreybert/vimagit'
 Plug 'tpope/vim-fugitive'
+Plug 'stsewd/fzf-checkout.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'https://github.com/mbbill/undotree'
 " { Syntax and highlighting }
-Plug 'https://github.com/mboughaba/i3config.vim'
 Plug 'kovetskiy/sxhkd-vim'
 Plug 'w0rp/ale'
+Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'https://github.com/sedm0784/vim-you-autocorrect/'
 Plug 'farconics/victionary'
 Plug 'https://github.com/plasticboy/vim-markdown'
@@ -46,7 +47,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'vimwiki/vimwiki'
 Plug 'liuchengxu/vim-which-key'
 Plug 'kkoomen/vim-doge'
-Plug 'https://github.com/itchyny/calendar.vim'
+"Plug 'https://github.com/itchyny/calendar.vim'
 " { Make life easier}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -57,36 +58,45 @@ Plug 'tpope/vim-repeat'
 Plug 'turbio/bracey.vim'
 Plug 'mattn/emmet-vim'
 Plug 'justinmk/vim-sneak'
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'https://github.com/ap/vim-css-color'
-"Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'tweekmonster/django-plus.vim'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'bfrg/vim-jqplay'
+Plug 'liuchengxu/vista.vim'
+"Plug 'puremourning/vimspector'
+"Plug 'SirVer/ultisnips'
+"Plug 'pseewald/vim-anyfold'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " { Aesthetics }
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'edkolev/tmuxline.vim'
 Plug 'rafi/awesome-vim-colorschemes'
-Plug 'kjwon15/vim-transparent'
-Plug 'ryanoasis/vim-devicons'
+Plug 'chriskempson/base16-vim'
+Plug 'https://github.com/lambdalisue/nerdfont.vim'
 Plug 'https://github.com/godlygeek/tabular'
-Plug 'voldikss/vim-floaterm'
+"Plug 'voldikss/vim-floaterm'
+"Plug 'kjwon15/vim-transparent'
+
+" {fern}
+Plug 'https://github.com/lambdalisue/fern.vim'
+Plug 'https://github.com/antoinemadec/FixCursorHold.nvim'
+Plug 'https://github.com/lambdalisue/fern-renderer-nerdfont.vim'
+Plug 'https://github.com/lambdalisue/fern-hijack.vim'
+Plug 'https://github.com/lambdalisue/fern-git-status.vim'
+Plug 'https://github.com/LumaKernel/fern-mapping-fzf.vim'
+Plug 'https://github.com/lambdalisue/fern-comparator-lexical.vim'
+
 " { Themes enhanced }
 Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'sainnhe/edge'
 Plug 'sainnhe/gruvbox-material'
-"Plug 'https://github.com/lifepillar/vim-gruvbox8'
+Plug 'sainnhe/sonokai'
+Plug 'sainnhe/forest-night'
+Plug 'dracula/vim', { 'as': 'dracula' }
 " { Just in case }
-"Plug 'chriskempson/base16-vim'
-"Plug 'tpope/vim-commentary'
-"Plug 'scrooloose/nerdtree'
-"Plug 'terryma/vim-multiple-cursors'
-"Plug 'https://github.com/vim-scripts/Tabmerge'
-"Plug 'https://github.com/sjl/gundo.vim'
+Plug 'jupyter-vim/jupyter-vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'artur-shaik/vim-javacomplete2'
-"Plug 'https://github.com/vim-scripts/utl.vim'
-"Plug 'jceb/vim-orgmode'
 
 call plug#end()
 
@@ -109,16 +119,35 @@ endif
 "let g:gruvbox_material_better_performance = 1
 """
 """ For edge (only works if put above colorscheme)
-let g:edge_style = 'aura'
-let g:edge_enable_italic = 1
-let g:edge_disable_italic_comment = 1
-let g:edge_transparent_background = 1
-let g:edge_diagnostic_line_highlight = 1
-let g:edge_better_performance = 1
+"let g:edge_style = 'aura'
+"let g:edge_enable_italic = 1
+"let g:edge_disable_italic_comment = 1
+"let g:edge_transparent_background = 1
+"let g:edge_diagnostic_line_highlight = 1
+"let g:edge_better_performance = 1
+"""
+
+""" For sonokai (only works if put above colorscheme)
+let g:sonokai_enable_italic = 1
+let g:sonokai_enable_bold = 1
+let g:sonokai_disable_italic_comment = 1
+"let g:sonokai_transparent_background = 1
+let g:sonokai_better_performance = 1
+let g:sonokai_diagnostic_line_highlight = 1
+"""
+
+
+""" For edge (only works if put above colorscheme)
+"let g:forest_night_enable_italic = 1
+"let g:forest_night_enable_bold = 1
+"let g:forest_night_disable_italic_comment = 1
+"let g:forest_night_transparent_background = 1
+"let g:forest_night_better_performance = 1
+"let g:forest_night_diagnostic_line_highlight = 1
 """
 
 "hi normal guibg=NONE ctermbg=NONE
-colorscheme edge
+colorscheme sonokai
 set nocompatible
 set t_ut=
 set ttyfast
@@ -227,8 +256,8 @@ let g:startify_session_delete_buffers = 1
 let g:startify_change_to_vcs_root = 1
 let g:startify_session_persistence = 1
 let g:startify_enable_special = 0
-"let g:startify_session_sort = 1
 let g:startify_change_to_dir = 1
+"let g:startify_session_sort = 1
 
 
 "Map keys
@@ -253,27 +282,30 @@ let g:startify_bookmarks = [
 
 " gitgutter plugin
 set updatetime=200
-highlight GitGutterAdd		cterm=bold ctermfg=2
-highlight GitGutterDelete	cterm=bold ctermfg=1
-highlight GitGutterChange	cterm=bold ctermfg=3
-highlight GitGutterText		cterm=bold ctermfg=5
+"highlight GitGutterAdd		cterm=bold ctermfg=2
+"highlight GitGutterDelete	cterm=bold ctermfg=1
+"highlight GitGutterChange	cterm=bold ctermfg=3
+"highlight GitGutterText		cterm=bold ctermfg=5
 
 " vim-fugitive plugin
-highlight DiffAdd		cterm=NONE ctermbg=17
-highlight DiffDelete	cterm=NONE ctermbg=17 ctermfg=1
-highlight DiffChange	cterm=NONE ctermbg=17
-highlight DiffText		cterm=NONE ctermbg=52
+"highlight DiffAdd		cterm=NONE ctermbg=17
+"highlight DiffDelete	cterm=NONE ctermbg=17 ctermfg=1
+"highlight DiffChange	cterm=NONE ctermbg=17
+"highlight DiffText		cterm=NONE ctermbg=52
 
 " vim fugitive mapkeys
 map <Leader>gs :G<CR>
 map <Leader>gd :GdiffSplit<CR>
-map <Leader>gl :Git log<CR>
+map <Leader>gb :GBranches<CR>
+map <Leader>gL :Git log<CR>
 map <Leader>gr :Gread<CR>
 map <Leader>ge :Gedit<CR>
 map <Leader>gm :GMove<CR>
 map <Leader>gc :GRename<CR>
 map <Leader>gR :GRemove<CR>
 map <Leader>gD :GDelete<CR>
+map <Leader>gj :diffget //3<CR>
+map <Leader>gk :diffget //2<CR>
 
 "Open git tree
 nnoremap <leader>eg :Magit<CR>
@@ -281,16 +313,12 @@ nnoremap <leader>eg :Magit<CR>
 "Open Undo tree
 nnoremap <leader>eu :UndotreeToggle<CR>
 
+""" Fern
+nmap <leader>n :Fern . -drawer -toggle -reveal=%<CR>
+let g:fern#renderer = "nerdfont"
+"let g:fern#comparator = "lexical"
 
-""" NERDTree plugin
-"noremap <Leader>n :NERDTreeToggle<CR>
-" NERDTree ignore
-"let NERDTreeIgnore = ['\.pyc$', '\.class']
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-""" coc-explorer
-nmap <leader>n :CocCommand explorer<CR>
-autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 " { Syntax and highlighting }
 
@@ -313,12 +341,12 @@ highlight todo ctermbg=100
 highlight SpellCap ctermbg=100
 
 "Map keys
-" ALE warp to next error
-"nnoremap <Leader>j :ALENextWrap<CR>
-"nnoremap <Leader>k :ALEPreviousWrap<CR>
 " ALE Fixes
 nnoremap <Leader>at :ALEFix trim_whitespace<CR>
 "map <Leader>fix :ALEFix<CR>
+" ALE warp to next error
+"nnoremap <Leader>j :ALENextWrap<CR>
+"nnoremap <Leader>k :ALEPreviousWrap<CR>
 
 """""" Victionary
 let g:victionary#map_defaults =0
@@ -327,6 +355,29 @@ nmap <leader>eD <Plug>(victionary#define_under_cursor)
 nmap <leader>es <Plug>(victionary#synonym_prompt)
 nmap <leader>eS <Plug>(victionary#synonym_under_cursor)
 
+""" Treesitter
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "all",      -- one of "all", "language", or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = {"ruby", "dart"},  -- list of language that will be disabled
+  },
+  refactor = {
+    highlight_definitions = {enable = true},
+    highlight_current_scope = {enable = false},
+    smart_rename = {
+        enable = true,
+        keymaps = {
+            smart_rename = "grr",
+        }
+    }
+  },
+}
+EOF
+
+"set foldmethod=expr
+"set foldexpr=nvim_treesitter#foldexpr()
 """""vim markdown
 let g:vim_markdown_no_extensions_in_markdown = 1
 let g:vim_markdown_folding_disabled = 1
@@ -347,20 +398,20 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
-nmap <silent> m[g <Plug>(coc-diagnostic-prev)
-nmap <silent> m]g <Plug>(coc-diagnostic-next)
+nmap <silent> ,[g <Plug>(coc-diagnostic-prev)
+nmap <silent> ,]g <Plug>(coc-diagnostic-next)
 
 " Remap keys for goton
-nmap <silent> mgd <Plug>(coc-definition)
-nmap <silent> mgy <Plug>(coc-type-definition)
-nmap <silent> mgi <Plug>(coc-implementation)
-nmap <silent> mgr <Plug>(coc-references)
+nmap <silent> ,gd <Plug>(coc-definition)
+nmap <silent> ,gy <Plug>(coc-type-definition)
+nmap <silent> ,gi <Plug>(coc-implementation)
+nmap <silent> ,gr <Plug>(coc-references)
 
 " Remap for rename current word
-nmap mrn <Plug>(coc-rename)
+nmap ,rn <Plug>(coc-rename)
 
 " Use K to show documentation in preview window
-nnoremap <silent> mh :call <SID>show_documentation()<CR>
+nnoremap <silent> ,h :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -412,28 +463,26 @@ command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" Add status line support, for integration with other plugin, checkout `:h coc-status`
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
 " Using CocList
 " Show all diagnostics
-nnoremap <silent> ma  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> ,  :<C-u>CocList<cr>
+nnoremap <silent> ,a  :<C-u>CocList diagnostics<cr>
 " Manage extensions
-nnoremap <silent> me  :<C-u>CocList extensions<cr>
+nnoremap <silent> ,e  :<C-u>CocList extensions<cr>
 " Show commands
-nnoremap <silent> mc  :<C-u>CocList commands<cr>
+nnoremap <silent> ,c  :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> mo  :<C-u>CocList outline<cr>
+nnoremap <silent> ,o  :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent> ms  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> ,s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> mj  :<C-u>CocNext<CR>
+nnoremap <silent> ,j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> mk  :<C-u>CocPrev<CR>
+nnoremap <silent> ,k  :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> mp  :<C-u>CocListResume<CR>
+nnoremap <silent> ,p  :<C-u>CocListResume<CR>
 " Show extension market
-map <silent> mm :<C-u>CocList marketplace<CR>
+map <silent> ,m :<C-u>CocList marketplace<CR>
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -452,19 +501,22 @@ endfunction
 	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " { Documentation }
 
+"""
+lua require'colorizer'.setup()
+
 """"" VimWiki
 " Ensure files are read as what I want:
-let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
+"let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 "map <leader>v :VimwikiIndex
-let g:vimwiki_list = [{'path': '~/Documents/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
+"let g:vimwiki_list = [{'path': '~/Documents/vimwiki', 'syntax': 'markdown', 'ext': '.md'}]
 
 """ vim-doge
-let g:doge_mapping = '<Leader>ea'
+"let g:doge_mapping = '<Leader>ea'
 
 """"" vim-which-key
-nnoremap <silent> <leader> :<c-u>WhichKey ','<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual ','<CR>
-call which_key#register(',', "g:which_key_map")
+nnoremap <silent> <leader> :<c-u>WhichKey ' '<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual ' '<CR>
+call which_key#register(' ', "g:which_key_map")
 set timeoutlen=300
 " Define prefix dictionary
 let g:which_key_map =  {}
@@ -498,10 +550,11 @@ let g:which_key_map.g = {
 	  \ 'c' : ['GRename', 'rename'],
 	  \ 'R' : ['GRemove', 'git rm file only'],
 	  \ 'D' : ['GDelete', 'git rm with buffer'],
+	  \ 'b' : ['GBranches', 'git branches explore'],
       \ }
 
 let g:which_key_map.m = {
-      \ 'name' : '+COC (No need for leader)',
+      \ 'name' : '+COC (Actually use , and no need for pressing leader)',
 	  \ '[g' : ['coc-diagnostic-prev', 'Previous diagnostic'],
 	  \ ']g' : ['coc-diagnostic-next', 'Next diagnostic'],
 	  \ 'gd' : ['coc-definition', 'Go to definition'],
@@ -517,22 +570,22 @@ let g:which_key_map.m = {
 	  \ 'j' : ['CocNext', 'do default action for next item'],
 	  \ 'k' : ['CocPrev', 'do default action for previous item'],
 	  \ 'p' : ['CocListResume', 'resume latest coc list'],
-      \ 'm' : ['Marketplace', 'Search for coc extensions']
+      \ 'm' : ['Marketplace', 'Search for coc extensions'],
+      \ 'l' : ['CocList', 'Search all List']
       \ }
-
 let g:which_key_map.e = {
 			\ 'name' : '+etc',
-			\ 'c' : 'Compile document',
-			\ 'p' : 'Preview file',
+			\ 'c' : ['Compile','Compile document'],
+			\ 'p' : ['Preview document' ,'Preview file'],
 			\ 'u' : ['UndotreeToggle', 'Open Undo Tree'],
 			\ 'g' : ['Magit', 'Open Git Tree'],
-			\ 'd' : 'Search prompt word',
-			\ 'D' : 'Search current word',
-			\ 's' : 'Search prompt synonym',
-			\ 'S' : 'Search current synonym',
-			\ 'e' : "Exit Session",
+			\ 'd' : ['Search meaning','Search prompt word'],
+			\ 'D' : ['Search meaning','Search current word'],
+			\ 's' : ['Search synonym', 'Search prompt synonym'],
+			\ 'S' : ['Search synonym', 'Search current synonym'],
+			\ 'e' : ['SClose', "Exit Session"],
             \ 'a' : ['DogeGenerate', 'Generate documentation'],
-            \ 'f' : 'Open configs'
+            \ 'f' : ['Open configs', 'Open Configs']
 			\}
 
 let g:which_key_map.f = {
@@ -555,17 +608,14 @@ let g:which_key_map.f = {
 			\ 'bc' : ['BCommits', 'Search Commits in buffers'],
 			\ 'a' : ['Commands', 'Search Action/Command'],
 			\ 'M' : ['Maps', 'Search for mappings'],
+			\ 'gc' : ['GBranches', 'Search for git branches'],
+			\ 'v' : ['Vista finder', 'Search for function/class in file'],
 			\}
 
 let g:which_key_map.t = {
-            \ 'name' : '+terminal',
-            \ 'g' : [':FloatermNew lazygit', 'lazygit'],
-            \ 'h' : [':FloatermNew htop', 'htop'],
-            \ 'c' : [':FloatermNew cmus', 'cmus'],
-            \ 'f' : [':FloatermNew fzf', 'fzf $HOME'],
-            \ 't' : [':FloatermNew', 'terminal'],
-            \ 'v' : [':FloatermNew vifm', 'vifm'],
-            \ '<F2>' : [':FloatermToggle', 'FloatermToggle'],
+            \ 'name' : 'Vista',
+			\ 't' : ['Vista!!', 'Show all function/class based on tags'],
+			\ 'v' : ['Vista coc', 'Show all function/class based on lsp(coc)'],
             \}
 
 " { Make life easier }
@@ -580,11 +630,13 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
   \   <bang>0)
 "fzf mappings
-noremap <leader>fi :Files<CR>
+nnoremap <leader>fi :Files<CR>
+nnoremap <leader>fv :Vista finder<CR>
 nnoremap <leader>fbl :Buffer<CR>
 nnoremap <leader>fgl :GFiles<CR>
 nnoremap <leader>fgs :GFiles?<CR>
 nnoremap <leader>frg :Rg<CR>
+nnoremap <leader>fcs :CocCommand<CR>
 nnoremap <leader>flb :Lines<CR>
 nnoremap <leader>fcb :BLines<CR>
 nnoremap <leader>fm :Marks<CR>
@@ -592,21 +644,38 @@ nnoremap <leader>fw :Windows<CR>
 nnoremap <leader>fhf :History<CR>
 nnoremap <leader>fhc :History:<CR>
 nnoremap <leader>fhs :History/<CR>
-nnoremap <leader>fs :Snippets<CR>
+nnoremap <leader>fs :CocList snippets<CR>
 nnoremap <leader>fcc :Commits<CR>
 nnoremap <leader>fco :Colors<CR>
 nnoremap <leader>fbc :BCommits<CR>
+nnoremap <leader>fgc :GBranches<CR>
 nnoremap <leader>fa :Commands<CR>
 nnoremap <leader>fM :Maps<CR>
+
+""" Emmet vim
+"let g:user_emmet_mode=','
+let g:user_emmet_leader_key=','
 """"" vim sneak
 let g:sneak#label = 1
 "Sneak map
 map f <Plug>Sneak_s
 map F <Plug>Sneak_S
 """" vim-snippets
-let g:UltiSnipsExpandTrigger="<A-tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+"let g:UltiSnipsExpandTrigger="<A-tab>"
+"let g:UltiSnipsJumpForwardTrigger="<c-b>"
+"let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+""" Vim-vista
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+let g:vista#renderer#enable_icon = 1
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
+
+nnoremap <leader>tt :Vista!!<CR>
+nnoremap <leader>tc :Vista coc<CR>
+
 
 "Vim-markdown preview
 let g:mkdp_preview_options = {
@@ -627,9 +696,9 @@ let g:mkdp_browser = 'google-chrome-stable'
 " { Aesthetics }
 """"" lightline
 let g:lightline = {
-  \	'colorscheme': 'edge',
+  \	'colorscheme': 'sonokai',
   \     'active': {
-  \         'left': [['mode', 'paste' ], ['fugitive','readonly'], ['filename', 'modified']],
+  \         'left': [['mode', 'paste' ], ['fugitive','readonly'], ['cocstatus', 'readonly'], ['filename', 'modified']],
   \         'right': [['lineinfo'], ['percent'], ['charvaluehex','fileformat', 'fileencoding']]
   \     },
   \	'component_function': {
@@ -637,7 +706,8 @@ let g:lightline = {
   \     'readonly': 'LightlineReadonly',
   \     'modified': 'LightlineModified',
   \     'fileformat': 'LightlineFileFormat',
-  \     'filetype': 'LightlineFileType'
+  \     'filetype': 'LightlineFileType',
+  \     'cocstatus': 'coc#status'
   \
   \		},
   \'component': {
@@ -664,6 +734,7 @@ let g:lightline.component_type = {
 \}
 let g:lightline#bufferline#enable_devicons = 1
 let g:lightline#bufferline#filename_modifier = ':te'
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 """ Tmuxline
 let g:tmuxline_preset = {
@@ -682,23 +753,6 @@ let g:tmuxline_separators = {
     \ 'right' : "\ue0ba",
     \ 'right_alt' : "\ue0bd",
     \ 'space' : ' '}
-
-""" Floaterm
-let g:floaterm_gitcommit='floaterm'
-let g:floaterm_autoinsert=1
-let g:floaterm_width=0.8
-let g:floaterm_height=0.8
-let g:floaterm_wintitle=0
-let g:floaterm_autoclose=1
-
-"Floater Keybind
-nnoremap <leader>tg :FloatermNew lazygit
-nnoremap <leader>th :FloatermNew htop
-nnoremap <leader>tt :FloatermNew
-nnoremap <leader>tc :FloatermNew cmus
-nnoremap <leader>tf :FloatermNew fzf
-nnoremap <leader>tv :FloatermNew vifm
-let g:floaterm_keymap_toggle ='<F2>'
 
 function! LightlineModified()
   return &modified ? '●' : ''
@@ -732,6 +786,15 @@ function! LightlineReload()
   call lightline#colorscheme()
   call lightline#update()
 endfunction
+
+""" vim-anyfold
+"autocmd FileType * AnyFoldActivate
+"set foldlevel=99 " Open all folds
+
+""" vim-jupyter
+let g:jupyter_mapkeys = 0
+
+
 """"""""""""""""""""""""""""""""""""""""""""""
 " System Mapping
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -783,20 +846,15 @@ map <Leader>gc :GRename<CR>
 map <Leader>gR :GRemove<CR>
 map <Leader>gD :GDelete<CR>
 
-" YouCompleteMe
-"map <Leader>gt :YcmCompleter GoTo<CR>
-
 " Buffers and Tabs
-nnoremap <C-left> :bprevious<CR>
-nnoremap <C-right> :bnext<CR>
+nnoremap <C-A-h> :bprevious<CR>
+nnoremap <C-A-l> :bnext<CR>
 nnoremap <C-n> :bprevious<CR>
 nnoremap <C-m> :bnext<CR>
-nnoremap <C-S-left> :tabprevious<CR>
-nnoremap <C-S-right> :tabnext<CR>
+nnoremap <C-A-j> :tabprevious<CR>
+nnoremap <C-A-k> :tabnext<CR>
 nnoremap <silent> <A-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
-"nnoremap <C-m> :Tabmerge right<CR>
-
 
 " Compile document, be it groff/LaTeX/markdown/etc.
 map <leader>ec :w! \| !compiler <c-r>%<CR>
@@ -871,5 +929,8 @@ map <leader>pp :!opout <c-r>%<CR><CR>
 "autocmd FileType java setlocal omnifunc=javacomplete#Complete
 "nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
 
+"map <F3> <C-o><Plug>VimyouautocorrectUndo
+
+" {PATH}
 let g:coc_node_path = '/usr/bin/node'
-map <F3> <C-o><Plug>VimyouautocorrectUndo
+let g:python3_host_prog = expand('/usr/bin/python3.8')

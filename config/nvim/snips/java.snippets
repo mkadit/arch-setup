@@ -94,3 +94,558 @@ snippet emitter "emitter properties"
 	private readonly ${1} = new Emitter<$2>()
 	public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
 endsnippet
+snippet bubbleSort
+// Bubble sort ke Kanan
+	static void bubbleSort(int arr[]) {
+        int n = arr.length;
+        for (int i = 0; i < n-1; i++)
+            for (int j = 0; j < n-i-1; j++)
+                if (arr[j] > arr[j+1])
+                {
+                    // swap arr[j+1] and arr[j]
+                    int temp = arr[j];
+                    arr[j] = arr[j+1];
+                    arr[j+1] = temp;
+                }
+    }
+endsnippet
+
+snippet selectionSort
+// Selection sort nyari dari minimum
+
+static void selectionsort(int arr[])
+    {
+        int n = arr.length;
+
+        // One by one move boundary of unsorted subarray
+        for (int i = 0; i < n-1; i++)
+        {
+            // Find the minimum element in unsorted array
+            int min_idx = i;
+            for (int j = i+1; j < n; j++)
+                if (arr[j] < arr[min_idx])
+                    min_idx = j;
+
+            // Swap the found minimum element with the first
+            // element
+            int temp = arr[min_idx];
+            arr[min_idx] = arr[i];
+            arr[i] = temp;
+        }
+    }
+endsnippet
+
+snippet insertSort
+// Insertion Sort dari kiri ke kanan 
+    static void insertionSort(int arr[])
+    {
+        int n = arr.length;
+        for (int i = 1; i < n; ++i) {
+            int key = arr[i];
+            int j = i - 1;
+
+            /* Move elements of arr[0..i-1], that are
+               greater than key, to one position ahead
+               of their current position */
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j = j - 1;
+            }
+            arr[j + 1] = key;
+        }
+    }
+
+endsnippet
+
+snippet quickSort
+// Quick Sort dengan pivot di akhir array 
+    /* The main function that implements QuickSort()
+      arr[] --> Array to be sorted,
+      low  --> Starting index,
+      high  --> Ending index */
+    static void quickSort(int arr[], int low, int high)
+    {
+        if (low < high)
+        {
+            /* pi is partitioning index, arr[pi] is
+              now at right place */
+            int pi = partition(arr, low, high);
+
+            // Recursively sort elements before
+            // partition and after partition
+            quickSort(arr, low, pi-1);
+            quickSort(arr, pi+1, high);
+        }
+    }
+
+    static int partition(int arr[], int low, int high)
+    {
+        int pivot = arr[high];  // Ubah partition
+        int i = (low-1); // index of smaller element
+        for (int j=low; j<high; j++)
+        {
+            // If current element is smaller than the pivot
+            if (arr[j] < pivot)
+            {
+                i++;
+
+                // swap arr[i] and arr[j]
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+
+        // swap arr[i+1] and arr[high] (or pivot)
+        int temp = arr[i+1];
+        arr[i+1] = arr[high];
+        arr[high] = temp;
+
+        return i+1;
+    }
+endsnippet
+
+snippet mergeSort
+// Merge sort 
+    static void mergeSort(int arr[], int l, int m, int r)
+    {
+        // Find sizes of two subarrays to be merged
+        int n1 = m - l + 1;
+        int n2 = r - m;
+
+        /* Create temp arrays */
+        int L[] = new int[n1];
+        int R[] = new int[n2];
+
+        /*Copy data to temp arrays*/
+        for (int i = 0; i < n1; ++i)
+            L[i] = arr[l + i];
+        for (int j = 0; j < n2; ++j)
+            R[j] = arr[m + 1 + j];
+
+        /* Merge the temp arrays */
+
+        // Initial indexes of first and second subarrays
+        int i = 0, j = 0;
+
+        // Initial index of merged subarry array
+        int k = l;
+        while (i < n1 && j < n2) {
+            if (L[i] <= R[j]) {
+                arr[k] = L[i];
+                i++;
+            }
+            else {
+                arr[k] = R[j];
+                j++;
+            }
+            k++;
+        }
+
+        /* Copy remaining elements of L[] if any */
+        while (i < n1) {
+            arr[k] = L[i];
+            i++;
+            k++;
+        }
+
+        /* Copy remaining elements of R[] if any */
+        while (j < n2) {
+            arr[k] = R[j];
+            j++;
+            k++;
+        }
+    }
+
+    // Main function that sorts arr[l..r] using
+    // merge()
+    static void sort(int arr[], int l, int r)
+    {
+        if (l < r) {
+            // Find the middle point
+            int m = (l + r) / 2;
+
+            // Sort first and second halves
+            sort(arr, l, m);
+            sort(arr, m + 1, r);
+
+            // Merge the sorted halves
+            mergeSort(arr, l, m, r);
+        }
+    }
+endsnippet
+
+snippet shellSort
+static int shellSort(int arr[])
+    {
+        int n = arr.length;
+
+        // Start with a big gap, then reduce the gap
+        for (int gap = n/2; gap > 0; gap /= 2)
+        {
+            // Do a gapped insertion sort for this gap size.
+            // The first gap elements a[0..gap-1] are already
+            // in gapped order keep adding one more element
+            // until the entire array is gap sorted
+            for (int i = gap; i < n; i += 1)
+            {
+                // add a[i] to the elements that have been gap
+                // sorted save a[i] in temp and make a hole at
+                // position i
+                int temp = arr[i];
+
+                // shift earlier gap-sorted elements up until
+                // the correct location for a[i] is found
+                int j;
+                for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+                    arr[j] = arr[j - gap];
+
+                // put temp (the original a[i]) in its correct
+                // location
+                arr[j] = temp;
+            }
+        }
+        return 0;
+    }
+endsnippet
+
+snippet doublyLinkedList
+// Doubly linked list dengan method addFirst, addLast, removeLast, removeFirst
+    static class DoublyLinkedList<E extends Object> {
+        ListNode header;
+        ListNode footer;
+
+        public DoublyLinkedList() {
+            this.header = new ListNode();
+            this.footer = header;
+        }
+
+        public void addLast(E data) {
+            ListNode newNode = new ListNode(data, footer, null);
+            footer.next = newNode;
+            footer = newNode;
+        }
+
+        public void addFirst(E data) {
+            if (header.next == null) {
+                addLast(data);
+            } else {
+                ListNode newNode = new ListNode(data, header, header.next);
+                header.next.prev = newNode;
+                header.next = newNode;
+            }
+
+        }
+
+        public void removeFirst() {
+            ListNode firstItem = header.next;
+
+            if (firstItem != null) {
+                header.next = firstItem.next;
+
+                if (firstItem.next != null) {
+                    firstItem.next.prev = header;
+                }
+            }
+        }
+
+        public void removeLast() {
+            ListNode lastItem = footer;
+
+            if (lastItem.prev != header) {
+                lastItem.prev.next = null;
+                footer = lastItem.prev;
+            }
+        }
+
+        // Mengoverride toString default
+        public String toString() {
+            StringBuilder result = new StringBuilder();
+
+            ListNode pointer = header;
+
+            while (pointer.next != null) {
+                pointer = pointer.next;
+                result.append(pointer.data + " ");
+            }
+
+            return result.toString();
+        }
+    }
+endsnippet
+
+snippet listNode
+ static class ListNode<E extends Object> {
+        E data;
+        ListNode next;
+        ListNode prev;
+
+        public ListNode(E data, ListNode prev, ListNode next) {
+            this.data = data;
+            this.prev = prev;
+            this.next = next;
+        }
+
+        public ListNode() {
+            this (null, null,null);
+        }
+
+    }
+endsnippet
+
+snippet reader
+static class Reader 
+    { 
+        final private int BUFFER_SIZE = 1 << 16; 
+        private DataInputStream din; 
+        private byte[] buffer; 
+        private int bufferPointer, bytesRead; 
+  
+        public Reader() 
+        { 
+            din = new DataInputStream(System.in); 
+            buffer = new byte[BUFFER_SIZE]; 
+            bufferPointer = bytesRead = 0; 
+        } 
+  
+        public Reader(String file_name) throws IOException 
+        { 
+            din = new DataInputStream(new FileInputStream(file_name)); 
+            buffer = new byte[BUFFER_SIZE]; 
+            bufferPointer = bytesRead = 0; 
+        } 
+  
+        public String readLine() throws IOException 
+        { 
+            byte[] buf = new byte[64]; // line length 
+            int cnt = 0, c; 
+            while ((c = read()) != -1) 
+            { 
+                if (c == '\n') 
+                    break; 
+                buf[cnt++] = (byte) c; 
+            } 
+            return new String(buf, 0, cnt); 
+        } 
+  
+        public int nextInt() throws IOException 
+        { 
+            int ret = 0; 
+            byte c = read(); 
+            while (c <= ' ') 
+                c = read(); 
+            boolean neg = (c == '-'); 
+            if (neg) 
+                c = read(); 
+            do
+            { 
+                ret = ret * 10 + c - '0'; 
+            }  while ((c = read()) >= '0' && c <= '9'); 
+  
+            if (neg) 
+                return -ret; 
+            return ret; 
+        } 
+  
+        public long nextLong() throws IOException 
+        { 
+            long ret = 0; 
+            byte c = read(); 
+            while (c <= ' ') 
+                c = read(); 
+            boolean neg = (c == '-'); 
+            if (neg) 
+                c = read(); 
+            do { 
+                ret = ret * 10 + c - '0'; 
+            } 
+            while ((c = read()) >= '0' && c <= '9'); 
+            if (neg) 
+                return -ret; 
+            return ret; 
+        } 
+  
+        public double nextDouble() throws IOException 
+        { 
+            double ret = 0, div = 1; 
+            byte c = read(); 
+            while (c <= ' ') 
+                c = read(); 
+            boolean neg = (c == '-'); 
+            if (neg) 
+                c = read(); 
+  
+            do { 
+                ret = ret * 10 + c - '0'; 
+            } 
+            while ((c = read()) >= '0' && c <= '9'); 
+  
+            if (c == '.') 
+            { 
+                while ((c = read()) >= '0' && c <= '9') 
+                { 
+                    ret += (c - '0') / (div *= 10); 
+                } 
+            } 
+  
+            if (neg) 
+                return -ret; 
+            return ret; 
+        } 
+  
+        private void fillBuffer() throws IOException 
+        { 
+            bytesRead = din.read(buffer, bufferPointer = 0, BUFFER_SIZE); 
+            if (bytesRead == -1) 
+                buffer[0] = -1; 
+        } 
+  
+        private byte read() throws IOException 
+        { 
+            if (bufferPointer == bytesRead) 
+                fillBuffer(); 
+            return buffer[bufferPointer++]; 
+        } 
+  
+        public void close() throws IOException 
+        { 
+            if (din == null) 
+                return; 
+            din.close(); 
+        } 
+    }
+endsnippet
+
+snippet template
+import java.io.*;
+import java.util.*;
+
+public class ${0}{
+	private static Reader in = new Reader();
+	private static PrintWriter out = new PrintWriter(System.out);
+	public static void main (String[] args) {
+		
+	}
+
+	static class Reader 
+		{ 
+			final private int BUFFER_SIZE = 1 << 16; 
+			private DataInputStream din; 
+			private byte[] buffer; 
+			private int bufferPointer, bytesRead; 
+	  
+			public Reader() 
+			{ 
+				din = new DataInputStream(System.in); 
+				buffer = new byte[BUFFER_SIZE]; 
+				bufferPointer = bytesRead = 0; 
+			} 
+	  
+			public Reader(String file_name) throws IOException 
+			{ 
+				din = new DataInputStream(new FileInputStream(file_name)); 
+				buffer = new byte[BUFFER_SIZE]; 
+				bufferPointer = bytesRead = 0; 
+			} 
+	  
+			public String readLine() throws IOException 
+			{ 
+				byte[] buf = new byte[64]; // line length 
+				int cnt = 0, c; 
+				while ((c = read()) != -1) 
+				{ 
+					if (c == '\n') 
+						break; 
+					buf[cnt++] = (byte) c; 
+				} 
+				return new String(buf, 0, cnt); 
+			} 
+	  
+			public int nextInt() throws IOException 
+			{ 
+				int ret = 0; 
+				byte c = read(); 
+				while (c <= ' ') 
+					c = read(); 
+				boolean neg = (c == '-'); 
+				if (neg) 
+					c = read(); 
+				do
+				{ 
+					ret = ret * 10 + c - '0'; 
+				}  while ((c = read()) >= '0' && c <= '9'); 
+	  
+				if (neg) 
+					return -ret; 
+				return ret; 
+			} 
+	  
+			public long nextLong() throws IOException 
+			{ 
+				long ret = 0; 
+				byte c = read(); 
+				while (c <= ' ') 
+					c = read(); 
+				boolean neg = (c == '-'); 
+				if (neg) 
+					c = read(); 
+				do { 
+					ret = ret * 10 + c - '0'; 
+				} 
+				while ((c = read()) >= '0' && c <= '9'); 
+				if (neg) 
+					return -ret; 
+				return ret; 
+			} 
+	  
+			public double nextDouble() throws IOException 
+			{ 
+				double ret = 0, div = 1; 
+				byte c = read(); 
+				while (c <= ' ') 
+					c = read(); 
+				boolean neg = (c == '-'); 
+				if (neg) 
+					c = read(); 
+	  
+				do { 
+					ret = ret * 10 + c - '0'; 
+				} 
+				while ((c = read()) >= '0' && c <= '9'); 
+	  
+				if (c == '.') 
+				{ 
+					while ((c = read()) >= '0' && c <= '9') 
+					{ 
+						ret += (c - '0') / (div *= 10); 
+					} 
+				} 
+	  
+				if (neg) 
+					return -ret; 
+				return ret; 
+			} 
+	  
+			private void fillBuffer() throws IOException 
+			{ 
+				bytesRead = din.read(buffer, bufferPointer = 0, BUFFER_SIZE); 
+				if (bytesRead == -1) 
+					buffer[0] = -1; 
+			} 
+	  
+			private byte read() throws IOException 
+			{ 
+				if (bufferPointer == bytesRead) 
+					fillBuffer(); 
+				return buffer[bufferPointer++]; 
+			} 
+	  
+			public void close() throws IOException 
+			{ 
+				if (din == null) 
+					return; 
+				din.close(); 
+			} 
+		}
+}
+endsnippet
