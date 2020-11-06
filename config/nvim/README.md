@@ -63,9 +63,6 @@ method or type " fcs" and fuzzy search snippets.editSnippets to create a snippet
 
 If you're lazy you can just add other people snippets.
 
-
-
-
 ### fzf
 Another important plugin, or rather program since this is not a vim exclusive thing. FZF is a fuzzy finder that's capable of searching for folders 
 and files quickly. You can of course extend this powerful utility by installing Rg, making it so not only can you fuzzy search for 
@@ -76,6 +73,12 @@ to find a a file that has a specific file but I don't really remember where it i
 to go through the list of buffers, history commands, etc.
 
 You get the idea.
+
+With this powerful utility you can surf your way through directories and files as easily. Want to go to
+a file? Press " fi" and fuzzy search it. Want to look through the files you've opened up in a buffer? " fbl"
+is all you need to type. See snippets? " fs". Switch git branches? " gb". Search history commands? " fh".
+You can even choose to swtich colorscheme by pressing " fco". There's also a few others but I figured you'll
+read them if you're curious.
 
 
 ## Buttons To Press
