@@ -26,16 +26,13 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'mhinz/vim-startify'
 Plug 'vifm/vifm.vim'
 " {Version Control }
-Plug 'jreybert/vimagit'
 Plug 'tpope/vim-fugitive'
 Plug 'stsewd/fzf-checkout.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'https://github.com/mbbill/undotree'
 " { Syntax and highlighting }
-Plug 'kovetskiy/sxhkd-vim'
 Plug 'w0rp/ale'
-Plug 'nvim-treesitter/nvim-treesitter'
-Plug 'https://github.com/plasticboy/vim-markdown'
+" Plug 'nvim-treesitter/nvim-treesitter'
 " { Intellisense }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'ycm-core/YouCompleteMe'
@@ -45,21 +42,22 @@ Plug 'liuchengxu/vim-which-key'
 " { Make life easier}
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'honza/vim-snippets'
+Plug 'mattn/emmet-vim'
+
+Plug 'airblade/vim-rooter'
+Plug 'tpope/vim-eunuch'
 Plug 'ferrine/md-img-paste.vim'
 Plug 'turbio/bracey.vim'
-Plug 'mattn/emmet-vim'
-Plug 'tweekmonster/django-plus.vim'
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'bfrg/vim-jqplay'
 Plug 'liuchengxu/vista.vim'
-Plug 'puremourning/vimspector'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'szw/vim-maximizer'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'puremourning/vimspector'
+Plug 'tweekmonster/django-plus.vim'
 " { Aesthetics }
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
@@ -85,20 +83,23 @@ Plug 'sainnhe/gruvbox-material'
 Plug 'sainnhe/sonokai'
 Plug 'sainnhe/forest-night'
 Plug 'dracula/vim', { 'as': 'dracula' }
+
 " { Just in case }
 Plug 'sheerun/vim-polyglot'
-"Plug 'jupyter-vim/jupyter-vim'
-"Plug 'https://github.com/severin-lemaignan/vim-minimap'
-"Plug 'https://github.com/sedm0784/vim-you-autocorrect/'
-"Plug 'farconics/victionary'
+"Plug 'https://github.com/plasticboy/vim-markdown'
+"Plug 'kovetskiy/sxhkd-vim'
 "Plug 'SirVer/ultisnips'
-"Plug 'pseewald/vim-anyfold'
-"Plug 'scrooloose/nerdcommenter'
+"Plug 'farconics/victionary'
+"Plug 'https://github.com/itchyny/calendar.vim'
+"Plug 'https://github.com/sedm0784/vim-you-autocorrect/'
+"Plug 'https://github.com/severin-lemaignan/vim-minimap'
+"Plug 'jupyter-vim/jupyter-vim'
 "Plug 'justinmk/vim-sneak'
-"Plug 'voldikss/vim-floaterm'
 "Plug 'kjwon15/vim-transparent'
 "Plug 'kkoomen/vim-doge'
-"Plug 'https://github.com/itchyny/calendar.vim'
+"Plug 'pseewald/vim-anyfold'
+"Plug 'scrooloose/nerdcommenter'
+"Plug 'voldikss/vim-floaterm'
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -306,7 +307,7 @@ nnoremap <leader>eg :Magit<CR>
 nnoremap <leader>eu :UndotreeToggle<CR>
 
 """ Fern
-nmap <leader>n :Fern . -drawer -toggle -reveal=%<CR>
+nmap <leader>n :Fern . -drawer -stay -toggle -reveal=%<CR>
 let g:fern#renderer = "nerdfont"
 "let g:fern#comparator = "lexical"
 
@@ -341,32 +342,32 @@ nnoremap <Leader>at :ALEFix trim_whitespace<CR>
 " nnoremap <Leader>k :ALEPreviousWrap<CR>
 
 """""" Victionary
-let g:victionary#map_defaults =0
-nmap <leader>ed <Plug>(victionary#define_prompt)
-nmap <leader>eD <Plug>(victionary#define_under_cursor)
-nmap <leader>es <Plug>(victionary#synonym_prompt)
-nmap <leader>eS <Plug>(victionary#synonym_under_cursor)
+" let g:victionary#map_defaults =0
+" nmap <leader>ed <Plug>(victionary#define_prompt)
+" nmap <leader>eD <Plug>(victionary#define_under_cursor)
+" nmap <leader>es <Plug>(victionary#synonym_prompt)
+" nmap <leader>eS <Plug>(victionary#synonym_under_cursor)
 
 """ Treesitter
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "all",      -- one of "all", "language", or a list of languages
-  highlight = {
-    enable = true,              -- false will disable the whole extension
-    disable = {"ruby", "dart"},  -- list of language that will be disabled
-  },
-  refactor = {
-    highlight_definitions = {enable = true},
-    highlight_current_scope = {enable = false},
-    smart_rename = {
-        enable = true,
-        keymaps = {
-            smart_rename = "grr",
-        }
-    }
-  },
-}
-EOF
+" lua <<EOF
+" require'nvim-treesitter.configs'.setup {
+"   ensure_installed = "all",      -- one of "all", "language", or a list of languages
+"   highlight = {
+"     enable = true,              -- false will disable the whole extension
+"     disable = {"ruby", "dart"},  -- list of language that will be disabled
+"   },
+"   refactor = {
+"     highlight_definitions = {enable = true},
+"     highlight_current_scope = {enable = false},
+"     smart_rename = {
+"         enable = true,
+"         keymaps = {
+"             smart_rename = "grr",
+"         }
+"     }
+"   },
+" }
+" EOF
 
 "set foldmethod=expr
 "set foldexpr=nvim_treesitter#foldexpr()
@@ -400,7 +401,8 @@ nmap <silent> <leader>gi <Plug>(coc-implementation)
 nmap <silent> <leader>gr <Plug>(coc-references)
 
 " Remap for rename current word
-nmap ,rn <Plug>(coc-rename)
+nmap <leader>rn <Plug>(coc-rename)
+nnoremap <leader>rp :CocSearch <C-R>=expand("<cword>")<CR><CR>
 
 " Use K to show documentation in preview window
 nnoremap <silent> ,h :call <SID>show_documentation()<CR>
@@ -510,6 +512,10 @@ let g:vimwiki_table_mappings=0
 "let g:doge_mapping = '<Leader>ea'
 
 " Vimspector
+fun GotoWindow(id)
+    call win_gotoid(a:id)
+    MaximizerToggle
+endfun
 nnoremap <leader>m :MaximizerToggle!<CR>
 nnoremap <leader>dd :call vimspector#Launch()<CR>
 nnoremap <leader>dc :call GotoWindow(g:vimspector_session_windows.code)<CR>
@@ -520,7 +526,7 @@ nnoremap <leader>ds :call GotoWindow(g:vimspector_session_windows.stack_trace)<C
 nnoremap <leader>do :call GotoWindow(g:vimspector_session_windows.output)<CR>
 nnoremap <leader>de :call vimspector#Reset()<CR>
 
-nnoremap <leader>dtcb :call vimspector#CleanLineBreakpoint()<CR>
+nnoremap <leader>dtc :call vimspector#CleanLineBreakpoint()<CR>
 
 nmap <leader>dl <Plug>VimspectorStepInto
 nmap <leader>dj <Plug>VimspectorStepOver
@@ -530,7 +536,11 @@ nnoremap <leader>d<space> :call vimspector#Continue()<CR>
 
 nmap <leader>drc <Plug>VimspectorRunToCursor
 nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
-nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
+nmap <leader>dcb <Plug>VimspectorToggleConditionalBreakpoint
+
+nmap <leader>ds <Plug>VimspectorStop
+nmap <leader>dp <Plug>VimspectorPause
+" <Plug>VimspectorAddFunctionBreakpoint
 
 """"" vim-which-key
 nnoremap <silent> <leader> :<c-u>WhichKey ' '<CR>
@@ -902,6 +912,12 @@ augroup postWrite
 	autocmd BufWritePost .Xresources silent !xrdb ~/.Xresources
 augroup end
 
+augroup autoSaveFolds
+  autocmd!
+  autocmd BufWinLeave * silent! mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END
+
 inoremap <C-v> <ESC>"*p
 vnoremap <C-c> "+y
 vnoremap <C-d> "+d
@@ -915,7 +931,8 @@ map <leader>pp :!opout <c-r>%<CR><CR>
 "autocmd VimEnter * if isdirectory(expand('<afile>')) | Explore | endif
 
 " Automatically change the current directory
-"autocmd BufEnter * silent! lcd %:p:h
+" autocmd BufEnter * silent! lcd %:p:h
+autocmd BufEnter * :Rooter
 
 "autocmd FileType java setlocal omnifunc=javacomplete#Complete
 "nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
