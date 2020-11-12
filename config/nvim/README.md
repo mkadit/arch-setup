@@ -1,10 +1,11 @@
-# The (Argueably) Good Way to Use This Setup
+# The (Argueably) Good Way to Use This Setup (Work in Progress)
 
 If you decided to use this setup then there are a few things you
 should know in order to make you digest all of it a lot easier.
 
 
 #Table of Content
+<!-- vim-markdown-toc GFM -->
 
 * [The Appetiser](#the-appetiser)
 * [The Main Dish](#the-main-dish)
@@ -14,20 +15,20 @@ should know in order to make you digest all of it a lot easier.
     * [fzf](#fzf)
     * [Emmet](#emmet)
     * [tpope's Plugins](#tpopes-plugins)
+    * [Polyglot / nvim-treesitter](#polyglot--nvim-treesitter)
 * [The Sidedish](#the-sidedish)
-    * [Fern](#fern)
+    * [Defx](#defx)
     * [Vista](#vista)
     * [Startify](#startify)
     * [VimWiki](#vimwiki)
     * [Undotree](#undotree)
 * [Aesthetics](#aesthetics)
-    * [base16-vim/awesome-vim-colorscheme/dracula/sonokai/etc](#base16-vimawesome-vim-colorschemedraculasonokaietc)
+    * [awesome-vim-colorscheme/sonokai](#awesome-vim-colorschemesonokai)
     * [Lightline](#lightline)
     * [Nerdfont.vim](#nerdfontvim)
 * [How to use it?](#how-to-use-it)
 
 <!-- vim-markdown-toc -->
-
 ## The Appetiser
 Nothing big and fancy just a few basic one.
 1. neovim - this is due to the plugin treesitter. If you decide to not use it then feel free to use normal vim.
@@ -37,8 +38,6 @@ Nothing big and fancy just a few basic one.
 5. Vim-Plug - Vim Plugin manager, you can change this with any vim plugin manager you want.
 
 With that being said and done I'll be covering the things that exist on this particular vim-setup.
-
-
 
 ## The Main Dish
 There are quite a lot of plugins I used, the sheer number of lines makes it
@@ -142,6 +141,12 @@ forth.
 That's it for the core. The rest of the plugins are just things that I would
 use seldomly, or simply for pure Aesthetics :D.
 
+### Polyglot / nvim-treesitter
+Reading in plain white text is a nightmare (at least for me). I don't know
+which one is variable, which one is a class which one's a method. Luckily
+Polyglot and nvim_treesitter got me covered on this part. Although you'll need
+to upgrade to nvim-nightly if you want to installed the latter.
+
 ## The Sidedish
 I've already covered the core plugins. The ones I often use and deem are
 important but what about the rest? Well they're plugins that I found to be
@@ -149,17 +154,20 @@ quite handy but not used as many or I deem as important as the the previous
 mentioned plugins. They're just there to make life a lot simpler, here's a list
 of them:
 
-### Fern
+### Defx
 Tree explorer are kind of a hit and miss for me. On one hand it can be a pain
 to navigate through them on the other hand they can serve as a reference for
 your list of files in a project, which is nice since I tend to forget what
 files I have and their paths.
 
-So out of the many tree explorer plugins why Fern? Well NERDTree explorer was
+So out of the many tree explorer plugins why Defx? Well NERDTree explorer was
 too slow, netrw is too much of hassle for me (and lack the pretty colors I
-want), and coc-explorer can't exactly replace netrw when I type `vim .`. Fern
-on the other hand is fast, have pretty blings blings, and can force replace
-netrw when I type `vim .` (not that I use it that much).
+want), LuaTree slow my vim down (even more than my lsp), as for coc-explorer
+and fern, they're nice I tried them and was pretty happy with them. Until I
+decided to go go chilling in the artic when I opened up a project with a large
+file. Defx on the other hand was fast, colorful, didn't become deadweight and
+more importantly doesn't decided to go on a vacation when I opened up a large
+project.
 
 ### Vista
 Sometimes in projects there would comes a time where you would have one single
@@ -208,7 +216,7 @@ current version is just a cherry on top of it.
 
 ## Aesthetics
 
-### base16-vim/awesome-vim-colorscheme/dracula/sonokai/etc
+### awesome-vim-colorscheme/sonokai
 They're colorscheme, that's it. Maybe I went overboard looking at the many
 colorschemes I have when I press `<leader>fco`, but I got bored of colorschemes
 pretty quickly so I tend to change it once in a while. You can just unsintall
@@ -237,7 +245,7 @@ use it all together.
 Open up vim, if you choose to open it with no file then a startup page will
 show up consisting of the files in your current directory, history of opened
 files, bookmarked files, and sessions. Open up a file by either selecting a
-file/session, or if you would use Fern to open a tree explorer by pressing
+file/session, or if you would use Defx to open a tree explorer by pressing
 `<leader>n` or if you know where the file is use FZF and search for the file by
 pressing `<leader>fi` and choose the file you want to edit.
 

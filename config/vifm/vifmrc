@@ -45,6 +45,8 @@ nnoremap A cw
 nnoremap ,w :set wrap!<cr>
 nmap <space> tj
 nmap q ZQ
+command! FZFfind :set noquickview | :execute 'goto' fnameescape(term('fzf --height 10 2>/dev/tty'))
+nnoremap fi :FZFfind<cr>
 
 fileview */ tree %c -L 1 --dirsfirst
 fileview ../ tree %c -L 1 --dirsfirst
