@@ -52,12 +52,13 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'honza/vim-snippets'
 Plug 'mattn/emmet-vim'
-
+Plug 'michaeljsmith/vim-indent-object'
 Plug 'liuchengxu/vista.vim'
 Plug 'szw/vim-maximizer'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'blueyed/vim-diminactive'
+
 Plug 'turbio/bracey.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
@@ -71,6 +72,9 @@ Plug 'sainnhe/sonokai'
 Plug 'sainnhe/edge'
 Plug 'sainnhe/gruvbox-material'
 Plug 'sainnhe/forest-night'
+Plug 'mhartington/oceanic-next'
+
+Plug 'pirey/toggle-line.vim'
 
 " {defx}
 if has('nvim')
@@ -84,10 +88,11 @@ Plug 'kristijanhusak/defx-icons'
 Plug 'kristijanhusak/defx-git'
 
 
-" " { Just in case }
+" { Just in case }
 " Plug 'dstein64/vim-startuptime'
 Plug 'airblade/vim-rooter'
 Plug 'vim-scripts/LargeFile'
+Plug 'puremourning/vimspector'
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -169,6 +174,7 @@ set noshowmode
 set backupdir=/tmp//
 set directory=/tmp//
 set undodir=/tmp//
+set spellfile=~/.config/nvim/spell/en.utf-8.add
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " Plugin Settings
@@ -178,7 +184,7 @@ set undodir=/tmp//
 
 """"" Vifm
 " Vifm mapkeys
-map <leader>vi :Vifm<CR>
+map <leader>vi :Vifm .<CR>
 map <leader>vv :VsplitVifm<CR>
 map <leader>vs :SplitVifm<CR>
 map <leader>vd :DiffVifm<CR>
@@ -204,11 +210,11 @@ let g:startify_custom_header =
 "vim startify sessions
 let g:startify_session_dir = '~/.config/nvim/session'
 let g:startify_session_delete_buffers = 1
-let g:startify_change_to_dir = 1
-let g:startify_change_to_vcs_root = 1
 let g:startify_session_persistence = 1
 let g:startify_enable_special = 0
-"let g:startify_session_sort = 1
+" let g:startify_change_to_dir = 1
+" let g:startify_change_to_vcs_root = 1
+" let g:startify_session_sort = 1
 
 
 "Map keys
@@ -248,7 +254,7 @@ nnoremap <leader>eu :UndotreeToggle<CR>
 nnoremap <leader>ef :UndotreeFocus<CR>
 
 """ Defx
-" nnoremap <leader>n :Defx`expand('%:p:h')` -search=`expand('%:p')` -buffer-name=defx<CR>
+" nnoremap <leader>n :Defx `expand('%:p:h')` -search=`expand('%:p')`<CR>
 nnoremap <leader>n :Defx<CR>
 
 if exists('g:plugs["defx.nvim"]')
@@ -460,7 +466,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Show all diagnostics
 nnoremap <silent> <leader>cl  :<C-u>CocList<cr>
 nnoremap <silent> <leader>ca  :<C-u>CocAction<cr>
-nnoremap <silent> <leader>cd  :<C-u>CocList diagnostics<cr>
+nnoremap <silent> <leader>cd  :<C-u>CocDiagnostics<cr>
 " Manage extensions
 nnoremap <silent> <leader>ce  :<C-u>CocList extensions<cr>
 " Show commands
@@ -479,6 +485,7 @@ nnoremap <silent> <leader>cp  :<C-u>CocListResume<CR>
 map <silent> <leader>cm :<C-u>CocList marketplace<CR>
 
 nnoremap <silent> <leader>cr :<C-u>CocRestart<CR>
+nnoremap <silent> <leader>cy :<C-u>CocDisable<CR>
 nnoremap <silent> <leader>cL <Plug>(coc-codelens-action)
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -575,6 +582,8 @@ let g:which_key_map.r = {
 	  \ 'r' : ['so $MYVIMRC', 'Load vimrc'],
 	  \ 'e' : ['coc-rename', 'rename current word'],
 	  \ 'p' : ['CocSearch', 'Get all occurence of word in project'],
+	  \ 'd' : ['lcd %p:g', 'Change to cwd'],
+	  \ 'k' : ['Rooter', 'Change to root folder'],
       \ }
 
 
@@ -607,6 +616,7 @@ let g:which_key_map.t = {
 			\ 'c' : ['Vista coc', 'Show all function/class based on lsp(coc)'],
 			\ 'm' : ['Vista toc', 'Show markdown toc'],
 			\ 'f' : ['Vista focus', 'Jump to tagbar'],
+			\ 's' : ['ToggleLine', 'Toggle status line'],
             \}
 
 let g:which_key_map.e = {
@@ -615,10 +625,6 @@ let g:which_key_map.e = {
       \ 'p' : ['Preview document' ,'Preview file'],
       \ 'u' : ['UndotreeToggle', 'Open Undo Tree'],
       \ 'g' : ['Magit', 'Open Git Tree'],
-      \ 'd' : ['Search meaning','Search prompt word'],
-      \ 'D' : ['Search meaning','Search current word'],
-      \ 's' : ['Search synonym', 'Search prompt synonym'],
-      \ 'S' : ['Search synonym', 'Search current synonym'],
       \ 'e' : ['SClose', "Exit Session"],
       \ 'a' : ['DogeGenerate', 'Generate documentation'],
       \ 'f' : ['UndotreeFocus', 'Jump to Undotree'],
@@ -696,6 +702,11 @@ let g:mkdp_browser = 'google-chrome-stable'
 lua require'colorizer'.setup()
 
 " { Aesthetics }
+
+""" toggle-line
+nmap <leader>ts <Plug>ToggleLine
+
+
 """"" lightline
 let g:lightline = {
   \	'colorscheme': 'sonokai',
@@ -790,6 +801,29 @@ function! LightlineReload()
 endfunction
 
 
+""" Vimsector
+nnoremap <leader>dd :call vimspector#Launch()<CR>
+nnoremap <leader>dc :call GotoWindow(g:vimspector_session_windows.code)<CR>
+nnoremap <leader>dt :call GotoWindow(g:vimspector_session_windows.tagpage)<CR>
+nnoremap <leader>dv :call GotoWindow(g:vimspector_session_windows.variables)<CR>
+nnoremap <leader>dw :call GotoWindow(g:vimspector_session_windows.watches)<CR>
+nnoremap <leader>ds :call GotoWindow(g:vimspector_session_windows.stack_trace)<CR>
+nnoremap <leader>do :call GotoWindow(g:vimspector_session_windows.output)<CR>
+nnoremap <leader>de :call vimspector#Reset()<CR>
+
+nnoremap <leader>dtc :call vimspector#CleanLineBreakpoint()<CR>
+
+nmap <leader>dl <Plug>VimspectorStepInto
+nmap <leader>dj <Plug>VimspectorStepOver
+nmap <leader>dk <Plug>VimspectorStepOut
+nmap <leader>d_ <Plug>VimspectorRestart
+nnoremap <leader>d<space> :call vimspector#Continue()<CR>
+
+nmap <leader>drc <Plug>VimspectorRunToCursor
+nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
+nmap <leader>dcp <Plug>VimspectorToggleConditionalBreakpoint
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " System Mapping
@@ -820,13 +854,11 @@ noremap <C-A-Right>	:vertical:resize +1<CR>
 " Close buffer
 nnoremap <Leader>bd :bd<CR>
 
-"netrw
-"noremap <Leader>n :Vexplore<CR>
-
-
 " reload vimrc
-nnoremap <Leader>re :e ~/.config/nvim/init.vim<CR>
 nnoremap <Leader>rr :so $MYVIMRC<CR>
+" Load Config file
+nnoremap <Leader>re :e ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>rj :CocConfig<CR>
 
 " hide search results
 map <Esc><Esc> :nohlsearch<CR>
@@ -847,6 +879,13 @@ map <leader>ec :w! \| !compiler <c-r>%<CR>
 
 " Open corresponding .pdf/.html or preview
 map <leader>ep :!opout <c-r>%<CR><CRj
+
+" Spell checker
+nmap <leader>ed :setlocal spell! spelllang=en_gb complete+=kspell<CR>
+
+" Change directories
+nnoremap <leader>rd :lcd %:p:h<CR>
+nnoremap <leader>rk :Rooter<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""
 " Configs
@@ -874,7 +913,30 @@ vnoremap <C-d> "+d
 " autocmd BufEnter * silent! lcd %:p:h
 " autocmd BufEnter * :Rooter
 
+
 " let g:cursorhold_updatetime = 100
+
+
+""" COC Extension
+let g:coc_global_extensions = [
+      \ 'coc-json',
+      \ 'coc-tsserver',
+      \ 'coc-snippets',
+      \ 'coc-python',
+      \ 'coc-java',
+      \ 'coc-html',
+      \ 'coc-css',
+      \ 'coc-omnisharp',
+      \ 'coc-yaml',
+      \ 'coc-pairs',
+      \ 'coc-lists',
+      \ 'coc-marketplace',
+      \]
+" let g:coc_filetype_map = {
+" 		\ 'html.swig': 'html',
+" 		\ 'htmldjango': 'html',
+" 		\ 'wxss': 'css',
+" 		\ }
 
 " {PATH}
 let g:coc_node_path = '/usr/bin/node'

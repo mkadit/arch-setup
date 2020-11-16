@@ -78,7 +78,7 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 source ~/.config/powerlevel10k/powerlevel10k.zsh-theme
-source ~/.config/powerlevel10k/.zsh-theme-gruvbox-material-dark
+# source ~/.config/powerlevel10k/.zsh-theme-gruvbox-material-dark
 #ZSH_THEME="powerlevel10k/powerlevel10k"
 export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
 
@@ -140,3 +140,5 @@ export PATH="/home/mkaditya/.gem/ruby/2.7.0/bin:$PATH"
 
 source /home/mkaditya/.config/broot/launcher/bash/br
 export FrameworkPathOverride=~/.config/coc/extensions/coc-omnisharp-data/server/omnisharp
+
+# ROFI_PASS_CONFIG="$HOME/.config/rofi-pass/config"
