@@ -1,5 +1,3 @@
-# Luke's config for the Zoomer Shell
-
 # Enable colors and change prompt:
 autoload -U colors && colors	# Load colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
@@ -135,10 +133,8 @@ ZSH_AUTOSUGGEST_USE_ASYNC=1
 
 
 export PATH="/home/mkaditya/.gem/ruby/2.7.0/bin:$PATH"
-#gen_fzf_default_opts
-
-
-source /home/mkaditya/.config/broot/launcher/bash/br
+export PATH="$HOME/.emacs.d/bin:$PATH"
 export FrameworkPathOverride=~/.config/coc/extensions/coc-omnisharp-data/server/omnisharp
 
 # ROFI_PASS_CONFIG="$HOME/.config/rofi-pass/config"
+# gen_fzf_default_opts

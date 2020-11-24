@@ -74,16 +74,17 @@ foreground = ${colors.snow-3}
 ; module-margin-left = 1
 ; module-margin-right = 1
 
-font-0 = "FuraCode Nerd Font:style=Medium:size=8;2"
-font-1 = "FuraCode Nerd Font:style=Bold:size=8;2"
-font-2 = "FuraCode Nerd Font:size=10;3"
-font-3 = "FuraCode Nerd Font:size=12;3"
-font-4 = "FuraCode Nerd Font:size=19;4"
+font-0 = "JetBrainsMono Nerd Font:style=Medium:size=8;2"
+font-1 = "JetBrainsMono Nerd Font:style=Bold:size=8;2"
+font-2 = "JetBrainsMono Nerd Font:size=10;3"
+font-3 = "JetBrainsMono Nerd Font:size=12;3"
+font-4 = "JetBrainsMono Nerd Font:size=19;4"
 font-5 = "FontAwesome:size=9;3"
 
 modules-left = dwm 
-modules-center = round-left  weather date round-right
-modules-right =  round-left mpd wallpaper round-right margin round-left news mailbox round-right margin round-left wired wlan round-right margin round-left  memory cpu temperature xbacklight pulseaudio battery round-right  margin round-left-red session round-right-red margin
+modules-center = 
+modules-right =  round-left mpd wallpaper round-right margin round-left news mailbox round-right margin round-left wired wlan round-right margin round-left  memory cpu temperature xbacklight pulseaudio battery round-right margin round-left  weather date round-right  margin 
+; round-left-red session round-right-red margin
 
 tray-background = ${colors.polar-1}
 tray-position = right

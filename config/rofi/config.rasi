@@ -7,10 +7,11 @@ configuration {
     sidebar-mode: true;
     kb-mode-next: "Shift+Down";
     kb-mode-previous: "Shift+Up";
-    font: "DejaVuMono Nerd Font Medium 12";
+    font: "JetBrainsMono Nerd Font Medium 12";
     show-icons: true;
     icon-theme: "Papirus";
-    modi: "window,drun,run,ssh";
+    modi: "drun,,ssh,window,run";
+    combi-modi: "drun,ssh,window,run";
     matching: "fuzzy";
 
 }
