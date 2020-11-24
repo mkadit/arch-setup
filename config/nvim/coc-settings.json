@@ -51,13 +51,10 @@
 	"java.import.gradle.wrapper.enabled": true,
 	"java.referencesCodeLens.enabled": true,
 	"java.codeGeneration.generateComments": false,
+	"java.home": "/usr/lib/jvm/default",
 
 	// Typescript
 	"tsserver.enable": true,
 	"tsserver.formatOnType": false,
-	"tsserver.enableJavascript": true,
-
-	// explorer
-	"coc.source.OmniSharp.enable": true,
-	"coc.source.OmniSharp.triggerCharacters": "."
+	"tsserver.enableJavascript": true
 }

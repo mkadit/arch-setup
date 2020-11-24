@@ -28,8 +28,9 @@ Plug 'vifm/vifm.vim'
 
 " {Version Control }
 Plug 'tpope/vim-fugitive'
-Plug 'stsewd/fzf-checkout.vim'
+" Plug 'stsewd/fzf-checkout.vim'
 Plug 'airblade/vim-gitgutter'
+Plug 'rbong/vim-flog'
 Plug 'https://github.com/mbbill/undotree'
 
 " { Syntax and highlighting }
@@ -39,19 +40,22 @@ Plug 'dense-analysis/ale'
 
 " { Intellisense }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'vn-ki/coc-clap'
 
 " { Documentation / Task management }
 Plug 'vimwiki/vimwiki'
 Plug 'liuchengxu/vim-which-key'
+Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
 
 " { Make life easier}
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-abolish'
 Plug 'honza/vim-snippets'
 Plug 'mattn/emmet-vim'
+Plug 'wellle/targets.vim'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'liuchengxu/vista.vim'
 Plug 'szw/vim-maximizer'
@@ -59,13 +63,14 @@ Plug 'mzlogin/vim-markdown-toc'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'blueyed/vim-diminactive'
 
+
 Plug 'turbio/bracey.vim'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 
  " { Aesthetics }
 Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
-Plug 'edkolev/tmuxline.vim'
+" Plug 'mengelbrecht/lightline-bufferline'
+" Plug 'edkolev/tmuxline.vim'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'sainnhe/sonokai'
@@ -92,7 +97,9 @@ Plug 'kristijanhusak/defx-git'
 " Plug 'dstein64/vim-startuptime'
 Plug 'airblade/vim-rooter'
 Plug 'vim-scripts/LargeFile'
-Plug 'puremourning/vimspector'
+" Plug 'puremourning/vimspector'
+" Plug 'junegunn/fzf'
+" Plug 'junegunn/fzf.vim'
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""
@@ -191,23 +198,37 @@ map <leader>vd :DiffVifm<CR>
 map <leader>vt :TabVifm<CR>
 
 """"" Startify
-" Copyright
+" let g:ascii = [
+" 			\'_______  _        _______  ______  __________________',
+" 			\'(       )| \    /\(  ___  )(  __  \ \__   __/\__   __/',
+" 			\'| () () ||  \  / /| (   ) || (  \  )   ) (      ) (   ',
+" 			\'| || || ||  (_/ / | (___) || |   ) |   | |      | |   ',
+" 			\'| |(_)| ||   _ (  |  ___  || |   | |   | |      | |   ',
+" 			\'| |   | ||  ( \ \ | (   ) || |   ) |   | |      | |   ',
+" 			\'| )   ( ||  /  \ \| )   ( || (__/  )___) (___   | |   ',
+" 			\'|/     \||_/    \/|/     \|(______/ \_______/   )_(   ',
+" 			\'
+"             \']
+
 let g:ascii = [
-			\'_______  _        _______  ______  __________________',
-			\'(       )| \    /\(  ___  )(  __  \ \__   __/\__   __/',
-			\'| () () ||  \  / /| (   ) || (  \  )   ) (      ) (   ',
-			\'| || || ||  (_/ / | (___) || |   ) |   | |      | |   ',
-			\'| |(_)| ||   _ (  |  ___  || |   | |   | |      | |   ',
-			\'| |   | ||  ( \ \ | (   ) || |   ) |   | |      | |   ',
-			\'| )   ( ||  /  \ \| )   ( || (__/  )___) (___   | |   ',
-			\'|/     \||_/    \/|/     \|(______/ \_______/   )_(   ',
-			\'
-            \']
+\'',
+\'       ▄▄        ▄▄ ',
+\'     ▄████       ███▄                                            ▄▄ ',
+\'   ▄ ▀█████▄     █████                                           ▀▀ ',
+\'   ▌ ▀▄██████    █████     ▌ ▄▀▀▄▄   ▄▄▀▀ ▄    ▄ ▀▀▄▄ ▓█▄    ▄█▌▐██ ▐██▄███▄▄▓███▄ ',
+\'   ▌    ▀█████▄  █████     ▌     ▐  ▓      █ ▄▀     ▐▌ ██▄  ▄█▌ ▐██ ▐██   ▐██   ▓██ ',
+\'   ▌   ▐  ██████ █████     ▌     ▐▌ █▀▀▀▀▀▀▀ █       █  ██ ▐██  ▐██ ▐██   ▐██   ▐██ ',
+\'   ▌   ▐   ▀█████▄████     ▌     ▐▌ █        ▀▄      █   ████   ▐██ ▐██   ▐██   ▐██ ',
+\'   ▌   ▐    ▀█████▄▀██     ▌     ▐   ▀▀▄▄▄▀▀   ▀▄▄▄▀▀    ▐▀▀    ▐▀▀ ▐▀▀   ▐▀▀   ▐▀▀ ',
+\'   ▀   ▐      ▀█████ █ ',
+\'     ▀▄▐       ▀████ ',
+\'       ▀         ▀ ',
+\'',
+\]
+let g:startify_custom_header = 'startify#center(g:ascii)'
+            " \'startify#center(g:ascii +startify#fortune#quote())'
 
-let g:startify_custom_header =
-            \'startify#center(g:ascii +startify#fortune#quote())'
-
-"vim startify sessions
+""vim startify sessions
 let g:startify_session_dir = '~/.config/nvim/session'
 let g:startify_session_delete_buffers = 1
 let g:startify_session_persistence = 1
@@ -225,16 +246,16 @@ nmap <leader>sd :SDelete<Space>
 
 " menus
 let g:startify_lists = [
-          \ { 'type': 'files',     'header': ['   Files']            },
-          \ { 'type': 'dir',       'header': ['   Current Directory '. getcwd()] },
-          \ { 'type': 'sessions',  'header': ['   Sessions']       },
-          \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+          \ { 'type': 'files',     'header': ['Files']            },
+          \ { 'type': 'dir',       'header': ['Current Directory '. getcwd()] },
+          \ { 'type': 'sessions',  'header': ['Sessions']       },
+          \ { 'type': 'bookmarks', 'header': ['Bookmarks']      },
           \ ]
 "bookmarks
 let g:startify_bookmarks = [
-            \ { 'c': '~/.config/' },
-            \ { 'C': '~/College/' },
             \ { 'i': '~/.config/nvim/init.vim' },
+            \ { 'c': '~/.config/nvim/coc-settings.json' },
+            \ { 'p': '~/.config/polybar/config' },
             \ ]
 
 
@@ -248,6 +269,7 @@ map <Leader>gf :GBranches<CR>
 map <Leader>gl :Git log<CR>
 map <Leader>gj :diffget //2<CR>
 map <Leader>gk :diffget //3<CR>
+map <Leader>gg :Flogsplit<CR>
 
 "Open Undo tree
 nnoremap <leader>eu :UndotreeToggle<CR>
@@ -379,6 +401,7 @@ let g:ale_fixers = {
 			\ 'python': ['isort', 'autopep8'],
 			\}
 " let g:ale_python_pylint_options = '--load-plugins pylint_django -d missing-docstring'
+nnoremap <Leader>rt :ALEFix trim_whitespace<CR>
 
 let g:ale_set_signs = 0
 highlight error ctermbg=88
@@ -465,16 +488,22 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Using CocList
 " Show all diagnostics
 nnoremap <silent> <leader>cl  :<C-u>CocList<cr>
-nnoremap <silent> <leader>ca  :<C-u>CocAction<cr>
-nnoremap <silent> <leader>cd  :<C-u>CocDiagnostics<cr>
+" nnoremap <silent> <leader>ca  :<C-u>CocAction<cr>
+nnoremap <silent> <leader>ca  :Clap coc_actions<cr>
+" nnoremap <silent> <leader>cd  :<C-u>CocDiagnostics<cr>
+nnoremap <silent> <leader>cd  :Clap coc_diagnostics<cr>
 " Manage extensions
-nnoremap <silent> <leader>ce  :<C-u>CocList extensions<cr>
+" nnoremap <silent> <leader>ce  :<C-u>CocList extensions<cr>
+nnoremap <silent> <leader>ce  :Clap coc_extensions<cr>
 " Show commands
-nnoremap <silent> <leader>cc  :<C-u>CocList commands<cr>
+" nnoremap <silent> <leader>cc  :<C-u>CocList commands<cr>
+nnoremap <silent> <leader>cc  :Clap coc_commands<cr>
 " Find symbol of current document
-nnoremap <silent> <leader>co  :<C-u>CocList outline<cr>
+" nnoremap <silent> <leader>co  :<C-u>CocList outline<cr>
+nnoremap <silent> <leader>co  :Clap coc_outline<cr>
 " Search workspace symbols
-nnoremap <silent> <leader>cs  :<C-u>CocList -I symbols<cr>
+" nnoremap <silent> <leader>fs  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <leader>fs  :Clap coc_symbols<cr>
 " Do default action for next item.
 nnoremap <silent> <leader>cj  :<C-u>CocNext<CR>
 " Do default action for previous item.
@@ -482,7 +511,9 @@ nnoremap <silent> <leader>ck  :<C-u>CocPrev<CR>
 " Resume latest coc list
 nnoremap <silent> <leader>cp  :<C-u>CocListResume<CR>
 " Show extension market
-map <silent> <leader>cm :<C-u>CocList marketplace<CR>
+nnoremap <silent> <leader>cm :<C-u>CocList marketplace<CR>
+nnoremap <silent> <leader>cs :Clap coc_services<CR>
+
 
 nnoremap <silent> <leader>cr :<C-u>CocRestart<CR>
 nnoremap <silent> <leader>cy :<C-u>CocDisable<CR>
@@ -510,11 +541,20 @@ endfunction
 """ VimWiki
 " Ensure files are read as what I want:
 let g:vimwiki_ext2syntax = {'.Rmd': 'markdown', '.rmd': 'markdown','.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
-let g:vimwiki_list = [{'path': '~/Documents/vimwiki'}]
+let g:vimwiki_list = [{'path': '~/Documents/vimwiki', 'syntax':'markdown', 'ext':'.md'}]
 let g:vimwiki_table_mappings=0
+let g:vimwiki_global_ext = 0
+let g:vimwiki_folding='list'
+
 
 
 nnoremap <leader>m :MaximizerToggle!<CR>
+
+""" vim doge
+let g:doge_enable_mappings= 0
+let g:doge_doc_standard_java= 'javadoc'
+let g:doge_doc_standard_python= 'numpy'
+nnoremap <leader>ea :DogeGenerate<CR>
 
 """"" vim-which-key
 nnoremap <silent> <leader> :<c-u>WhichKey ' '<CR>
@@ -523,148 +563,172 @@ call which_key#register(' ', "g:which_key_map")
 set timeoutlen=300
 " Define prefix dictionary
 let g:which_key_map =  {}
-let g:which_key_map.n ={
-            \ 'name' : 'Explorer'
-            \}
+let g:which_key_map.n = 'Explorer'
+let g:which_key_map.t = 'Tree Explorer'
+let g:which_key_map.m = 'Maximize Window'
+let g:which_key_map['.'] = 'Filer'
+
 let g:which_key_map.v = {
       \ 'name' : '+Vifm' ,
-      \ 'i' : ['Vifm', 'Open file via vifm'],
-	  \ 'v' : ['VSplitVifm', 'VSplit via vifm '],
-      \ 's' : ['SplitVifm', 'Split file via vifm'],
-      \ 'd' : ['DiffVifm', 'Diff files via vifm'],
-      \ 't' : ['TabVifm', 'OpenTab files vifm'],
+	  \ 'v' : ['VSplitVifm', 'VSplit via VIFM '],
+      \ 'd' : ['DiffVifm', 'Diff Files via VIFM'],
+      \ 'i' : ['Vifm', 'Open File via vIFM'],
+      \ 's' : ['SplitVifm', 'Split File via VIFM'],
+      \ 't' : ['TabVifm', 'OpenTab Files VIFM'],
       \ }
 let g:which_key_map.s = {
       \ 'name' : '+Sessions' ,
-      \ 'c' : ['SClose', 'Return to homepage'],
-      \ 's' : ['SSave', 'Save Session'],
-      \ 'l' : ['SLoad', 'Load Session'],
+      \ 'c' : ['SClose', 'Return to Homepage'],
       \ 'd' : ['SDelete', 'Delete Session'],
+      \ 'l' : ['SLoad', 'Load Session'],
+      \ 's' : ['SSave', 'Save Session'],
       \ }
 
 let g:which_key_map.g = {
       \ 'name' : '+Git/Goto' ,
+      \ 'D' : ['GdiffSplit', 'Open Diff in Split'],
+      \ 'b' : ['Gblame', 'Git Blame'],
+      \ 'c' : ['Clap commits', 'Commit for Current File'],
+      \ 'd' : ['coc-definition', 'Go to Definition'],
+      \ 'f' : ['GBranches', 'Change Branch'],
+      \ 'g' : ['Flogsplit', 'Commit Graph'],
+      \ 'i' : ['coc-implementation', 'Go to Implementation'],
+      \ 'j' : ['diffget //2', 'Get Left'],
+      \ 'k' : ['diffget //3', 'Get Right'],
+      \ 'l' : ['Git log', 'Git Log'],
+      \ 'r' : ['coc-references', 'Go to References'],
       \ 's' : ['G', 'Git Status'],
-      \ 'D' : ['GdiffSplit', 'Open diff in split'],
-      \ 'b' : ['Gblame', 'Git blame'],
-      \ 'f' : ['GBranches', 'Change branch'],
-      \ 'l' : ['Git log', 'Git log'],
-      \ 'j' : ['diffget //2', 'Get left'],
-      \ 'k' : ['diffget //3', 'Get right'],
-      \ 'g[' : ['coc-diagnostic-prev', 'Go to previous error'],
-      \ 'g]' : ['coc-diagnostic-next', 'Go to next error'],
-      \ 'd' : ['coc-definition', 'Go to definition'],
-      \ 'y' : ['coc-type-definition', 'Go to type definition'],
-      \ 'i' : ['coc-implementation', 'Go to implementation'],
-      \ 'r' : ['coc-references', 'Go to references'],
+      \ 'y' : ['coc-type-definition', 'Go to Type Definition'],
       \ }
 
 let g:which_key_map.c = {
       \ 'name' : '+COC',
-      \ 'l' : ['CocList', 'Search all List'],
-	  \ 'a' : ['CocList diagnostic', 'COC show all diagnostic'],
-	  \ 'e' : ['CocList extension', 'COC manage extension'],
-	  \ 'c' : ['CocList commands', 'COC command'],
-	  \ 'h' : ['show documentation' , 'show documentation'],
-	  \ 'o' : ['CocList outline', 'COC find symbol of current document'],
-	  \ 's' : ['CocList -I symbols', 'search workspace for symbols'],
-	  \ 'j' : ['CocNext', 'do default action for next item'],
-	  \ 'k' : ['CocPrev', 'do default action for previous item'],
-	  \ 'p' : ['CocListResume', 'resume latest coc list'],
-      \ 'm' : ['Marketplace', 'Search for coc extensions'],
-      \ 'r' : ['CocRestart', 'Restart coc'],
+	  \ 'a' : ['Clap coc_diagnostics', 'COC Show All Diagnostic'],
+	  \ 'c' : ['Clap coc_commands', 'COC Command'],
+	  \ 'd' : ['Clap coc_diagnostics', 'COC Diagnostic'],
+	  \ 'e' : ['Clap coc_extensions', 'COC Manage Extension'],
+	  \ 'h' : ['show documentation' , 'show Documentation'],
+	  \ 'j' : ['CocNext', 'Do Default Action for Next Item'],
+	  \ 'k' : ['CocPrev', 'Do Default Action For Previous item'],
+	  \ 'o' : ['Clap coc_outline', 'COC Find Symbol of Current Document'],
+	  \ 'p' : ['CocListResume', 'Resume Latest COC List'],
+	  \ 's' : ['Clap coc_symbols', 'Search Workspace for Symbols'],
+      \ 'l' : ['CocList', 'Search All List'],
+      \ 'm' : ['Marketplace', 'Search for COC Extensions'],
+      \ 'r' : ['CocRestart', 'Restart COC'],
+      \ 'y' : ['CocDisable', 'Disable COC'],
       \ }
 
 let g:which_key_map.r = {
-      \ 'name' : '+Rename' ,
+      \ 'name' : '+Rename/Config/Dir' ,
+	  \ 'd' : ['lcd %p:g', 'Change to Current Working Directory'],
+	  \ 'e' : ['e ~/.config/nvim/init.vim', 'Load VIMRC'],
+	  \ 'j' : ['CocConfig', 'Load COC Setting'],
+	  \ 'k' : ['Rooter', 'Change to Root Folder'],
+	  \ 'n' : ['coc-rename', 'Rename Current Word'],
+	  \ 'p' : ['CocSearch', 'Get All Occurence of Word in Project'],
+	  \ 'r' : ['so $MYVIMRC', 'Load VIMRC'],
       \ 't' : ['t', 'Trim Whitespace'],
-	  \ 'n' : ['coc-rename', 'rename current word'],
-	  \ 'r' : ['so $MYVIMRC', 'Load vimrc'],
-	  \ 'e' : ['coc-rename', 'rename current word'],
-	  \ 'p' : ['CocSearch', 'Get all occurence of word in project'],
-	  \ 'd' : ['lcd %p:g', 'Change to cwd'],
-	  \ 'k' : ['Rooter', 'Change to root folder'],
       \ }
 
 
 let g:which_key_map.f = {
-        \ 'name' : '+FZF',
-        \ 'i' : ['Files', 'Search for files'],
-        \ 'bl' : ['Buffer', 'Search for buffer'],
-        \ 'gl' : ['GFiles', 'Git list'],
-        \ 'gs' : ['GFiles?', 'Git status'],
-        \ 'rg' : ['Rg', 'Search for content'],
-        \ 'lb' : ['Lines', 'Search for line in all buffers file'],
-        \ 'cb' : ['Fcb', 'Search for line in active buffers'],
-        \ 'm' : ['Marks', 'Search for marks'],
-        \ 'w' : ['Windows', 'Search for windows/tabs'],
-        \ 'hf' : ['History', 'Search file history'],
-        \ 'hc' : ['History:', 'Search command history'],
-        \ 'hs' : ['History/', 'Search history'],
-        \ 's' : ['Snippets', 'Search for Snippets'],
-        \ 'co' : ['Commits', 'Search Colourscheme'],
-        \ 'cc' : ['Commits', 'Search Commits in file'],
-        \ 'bc' : ['BCommits', 'Search Commits in buffers'],
-        \ 'a' : ['Commands', 'Search Action/Command'],
-        \ 'M' : ['Maps', 'Search for mappings'],
-        \ 't' : ['Vista finder', 'Search for function/class in file'],
+        \ 'name' : '+Search',
+        \ 'M' : ['Clap maps', 'Search for Mappings'],
+        \ 'S' : ['Snippets', 'Search for Snippets'],
+        \ 'a' : ['Clap commands', 'Search Action/Command'],
+        \ 'c' : ['Clap colors', 'Search Colourscheme'],
+        \ 'f' : ['Clap files', 'Search for Files'],
+        \ 'm' : ['Clap marks', 'Search for Marks'],
+        \ 'p' : ['Clap proj_tags', 'Search for Function/Class in Project'],
+        \ 'r' : ['Clap grep2', 'Search for Content'],
+        \ 's' : ['CocList -I symbols', 'Search for Symbols'],
+        \ 't' : ['Clap tags', 'Search for Function/Class in Buffers'],
+        \ 'w' : ['Clap windows', 'Search for Windows/Tabs'],
         \}
 
-let g:which_key_map.t = {
-            \ 'name' : 'Vista',
-			\ 't' : ['Vista!!', 'Show all function/class based on tags'],
-			\ 'c' : ['Vista coc', 'Show all function/class based on lsp(coc)'],
-			\ 'm' : ['Vista toc', 'Show markdown toc'],
-			\ 'f' : ['Vista focus', 'Jump to tagbar'],
-			\ 's' : ['ToggleLine', 'Toggle status line'],
+let g:which_key_map.e = {
+      \ 'name' : '+Shell/Generate/Grammar',
+      \ 'C' : ['Compile PDF (VIMWIKI))' ,'Compile PDF (VIMWIKI))'],
+      \ 'a' : ['DogeGenerate', 'Generate Documentation'],
+      \ 'c' : ['Compile','Compile Document'],
+      \ 'd' : ['setlocal spell! spelllang=en_gb complete+=kspell','Turn on Auto Correct'],
+      \ 'f' : ['UndotreeFocus', 'Jump to Undotree'],
+      \ 'p' : ['Preview document' ,'Preview File'],
+      \ 's' : ['ToggleLine', 'Toggle Status Line'],
+      \ 'u' : ['UndotreeToggle', 'Open Undo Tree'],
+      \}
+
+let g:which_key_map.b = {
+            \ 'name' : '+Buffer',
+			\ 'b' : ['Clap buffers', 'Get Buffer List'],
+			\ 'c' : ['Clap bcommits', 'Current Buffer Commits'],
+			\ 'd' : ['bd', 'Close Current Buffer'],
             \}
 
-let g:which_key_map.e = {
-      \ 'name' : '+etc',
-      \ 'c' : ['Compile','Compile document'],
-      \ 'p' : ['Preview document' ,'Preview file'],
-      \ 'u' : ['UndotreeToggle', 'Open Undo Tree'],
-      \ 'g' : ['Magit', 'Open Git Tree'],
-      \ 'e' : ['SClose', "Exit Session"],
-      \ 'a' : ['DogeGenerate', 'Generate documentation'],
-      \ 'f' : ['UndotreeFocus', 'Jump to Undotree'],
-      \ 't' : ['t', 'Trim Whitespace'],
-      \}
+let g:which_key_map.h = {
+            \ 'name' : '+History',
+			\ 'c' : ['Clap hist:', 'File History'],
+			\ 'n' : ['Clap help_tags', 'Search Help'],
+			\ 's' : ['Clap hist/', 'Command History'],
+            \}
+
 " { Make life easier }
 """"" FZF
 " fzf plugin
-set rtp+=~/.fzf
+" set rtp+=~/.fzf
 " Rg Setting
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
-  \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
-  \   <bang>0)
+" command! -bang -nargs=* Rg
+"   \ call fzf#vim#grep(
+"   \   'rg --column --line-number --hidden --ignore-case --no-heading --color=always '.shellescape(<q-args>), 1,
+"   \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+"   \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
+"   \   <bang>0)
 "fzf mappings
-nnoremap <leader>fi :Files<CR>
-nnoremap <leader>fbl :Buffer<CR>
-nnoremap <leader>fgl :GFiles<CR>
-nnoremap <leader>fgs :GFiles?<CR>
-nnoremap <leader>frg :Rg<CR>
-nnoremap <leader>fcs :CocCommand<CR>
-nnoremap <leader>flb :Lines<CR>
-nnoremap <leader>fcb :BLines<CR>
-nnoremap <leader>fm :Marks<CR>
-nnoremap <leader>fw :Windows<CR>
-nnoremap <leader>fhf :History<CR>
-nnoremap <leader>fhc :History:<CR>
-nnoremap <leader>fhs :History/<CR>
-nnoremap <leader>fhh :Help<CR>
-nnoremap <leader>fs :CocList snippets<CR>
-nnoremap <leader>fcc :Commits<CR>
-nnoremap <leader>fco :Colors<CR>
-nnoremap <leader>fbc :BCommits<CR>
-nnoremap <leader>fa :Commands<CR>
-nnoremap <leader>fM :Maps<CR>
+" nnoremap <leader>fi :Files<CR>
+" nnoremap <leader>bl :Buffer<CR>
+" nnoremap <leader>fr :Rg<CR>
+" nnoremap <leader>fm :Marks<CR>
+" nnoremap <leader>fw :Windows<CR>
+" nnoremap <leader>fh :History<CR>
+" nnoremap <leader>hc :History:<CR>
+" nnoremap <leader>hs :History/<CR>
+" nnoremap <leader>hh :Help<CR>
+" nnoremap <leader>fS :CocList snippets<CR>
+" nnoremap <leader>gc :Commits<CR>
+" nnoremap <leader>fc :Colors<CR>
+" nnoremap <leader>bc :BCommits<CR>
+" nnoremap <leader>fa :Commands<CR>
+" nnoremap <leader>fM :Maps<CR>
+" nnoremap <leader>fl :Lines<CR>
+" nnoremap <leader>fgl :GFiles<CR>
+" nnoremap <leader>fgs :GFiles?<CR>
+" nnoremap <leader>fcb :BLines<CR>
 " Needed Vista
-nnoremap <leader>ft :Vista finder<CR> 
-nnoremap <leader>fo :Vista finder coc<CR> 
+" nnoremap <leader>ft :Vista finder<CR>
+" nnoremap <leader>fo :Vista finder coc<CR>
+
+""" Vim-clap
+nnoremap <leader>. :Clap filer<CR>
+nnoremap <leader>bc :Clap bcommits<CR>
+nnoremap <leader>bb :Clap buffers<CR>
+nnoremap <leader>fM :Clap maps<CR>
+nnoremap <leader>fS :CocList snippets<CR>
+nnoremap <leader>fa :Clap commands<CR>
+nnoremap <leader>fc :Clap colors<CR>
+nnoremap <leader>fh :Clap history<CR>
+nnoremap <leader>ff :Clap files<CR>
+nnoremap <leader>fm :Clap marks<CR>
+nnoremap <leader>fr :Clap grep2<CR>
+nnoremap <leader>fw :Clap windows<CR>
+nnoremap <leader>gc :Clap commits<CR>
+nnoremap <leader>hc :Clap hist:<CR>
+nnoremap <leader>hh :Clap help_tags<CR>
+nnoremap <leader>hs :Clap hist/<CR>
+" Needed Vista
+nnoremap <leader>fo :Vista finder clap:coc<CR>
+nnoremap <leader>ft :Clap tags<CR>
+nnoremap <leader>fp :Clap proj_tags<CR>
 
 """ Emmet vim
 let g:user_emmet_leader_key=','
@@ -677,10 +741,8 @@ let g:vista#renderer#icons = {
 \   "variable": "\uf71b",
 \  }
 
-nnoremap <leader>tt :Vista!!<CR>
-nnoremap <leader>tc :Vista coc<CR>
-nnoremap <leader>tm :Vista toc<CR>
-nnoremap <leader>tf :Vista focus<CR>
+nnoremap <leader>t :Vista!!<CR>
+let g:vista_default_executive = 'coc'
 
 
 """ Vim-markdown preview
@@ -704,7 +766,7 @@ lua require'colorizer'.setup()
 " { Aesthetics }
 
 """ toggle-line
-nmap <leader>ts <Plug>ToggleLine
+nmap <leader>es <Plug>ToggleLine
 
 
 """"" lightline
@@ -737,7 +799,7 @@ let g:lightline.subseparator = {
 \}
 let g:lightline.tabline = {
 \   'left': [['buffers']],
-\   'right': [['close']],
+\   'right': [['closed']],
 \}
 let g:lightline.component_expand = {
 \   'buffers': 'lightline#bufferline#buffers',
@@ -746,7 +808,7 @@ let g:lightline.component_type = {
 \   'buffers': 'tabsel',
 \}
 let g:lightline#bufferline#enable_devicons = 1
-let g:lightline#bufferline#filename_modifier = ':te'
+let g:lightline#bufferline#filename_modifier = ':t'
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 """ Tmuxline
@@ -802,26 +864,26 @@ endfunction
 
 
 """ Vimsector
-nnoremap <leader>dd :call vimspector#Launch()<CR>
-nnoremap <leader>dc :call GotoWindow(g:vimspector_session_windows.code)<CR>
-nnoremap <leader>dt :call GotoWindow(g:vimspector_session_windows.tagpage)<CR>
-nnoremap <leader>dv :call GotoWindow(g:vimspector_session_windows.variables)<CR>
-nnoremap <leader>dw :call GotoWindow(g:vimspector_session_windows.watches)<CR>
-nnoremap <leader>ds :call GotoWindow(g:vimspector_session_windows.stack_trace)<CR>
-nnoremap <leader>do :call GotoWindow(g:vimspector_session_windows.output)<CR>
-nnoremap <leader>de :call vimspector#Reset()<CR>
+" nnoremap <leader>dd :call vimspector#Launch()<CR>
+" nnoremap <leader>dc :call GotoWindow(g:vimspector_session_windows.code)<CR>
+" nnoremap <leader>dt :call GotoWindow(g:vimspector_session_windows.tagpage)<CR>
+" nnoremap <leader>dv :call GotoWindow(g:vimspector_session_windows.variables)<CR>
+" nnoremap <leader>dw :call GotoWindow(g:vimspector_session_windows.watches)<CR>
+" nnoremap <leader>ds :call GotoWindow(g:vimspector_session_windows.stack_trace)<CR>
+" nnoremap <leader>do :call GotoWindow(g:vimspector_session_windows.output)<CR>
+" nnoremap <leader>de :call vimspector#Reset()<CR>
 
-nnoremap <leader>dtc :call vimspector#CleanLineBreakpoint()<CR>
+" nnoremap <leader>dtc :call vimspector#CleanLineBreakpoint()<CR>
 
-nmap <leader>dl <Plug>VimspectorStepInto
-nmap <leader>dj <Plug>VimspectorStepOver
-nmap <leader>dk <Plug>VimspectorStepOut
-nmap <leader>d_ <Plug>VimspectorRestart
-nnoremap <leader>d<space> :call vimspector#Continue()<CR>
+" nmap <leader>dl <Plug>VimspectorStepInto
+" nmap <leader>dj <Plug>VimspectorStepOver
+" nmap <leader>dk <Plug>VimspectorStepOut
+" nmap <leader>d_ <Plug>VimspectorRestart
+" nnoremap <leader>d<space> :call vimspector#Continue()<CR>
 
-nmap <leader>drc <Plug>VimspectorRunToCursor
-nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
-nmap <leader>dcp <Plug>VimspectorToggleConditionalBreakpoint
+" nmap <leader>drc <Plug>VimspectorRunToCursor
+" nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
+" nmap <leader>dcp <Plug>VimspectorToggleConditionalBreakpoint
 
 
 
@@ -857,7 +919,7 @@ nnoremap <Leader>bd :bd<CR>
 " reload vimrc
 nnoremap <Leader>rr :so $MYVIMRC<CR>
 " Load Config file
-nnoremap <Leader>re :e ~/.config/nvim/init.vim<CR>
+nnoremap <Leader>re :e $MYVIMRC<CR>
 nnoremap <Leader>rj :CocConfig<CR>
 
 " hide search results
@@ -876,6 +938,7 @@ nnoremap <silent> <A-right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 
 " Compile document, be it groff/LaTeX/markdown/etc.
 map <leader>ec :w! \| !compiler <c-r>%<CR>
+map <leader>eC :!pandoc % -o %:r.pdf<CR>
 
 " Open corresponding .pdf/.html or preview
 map <leader>ep :!opout <c-r>%<CR><CRj
