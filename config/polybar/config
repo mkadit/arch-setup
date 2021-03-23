@@ -21,6 +21,37 @@ margin-top = 0
 margin-bottom = 0
 
 [colors]
+background = #2f343f
+background-alt = #C4C7C5
+foreground = #1C1E20
+foreground-alt = #C4C7C5
+;background = #233035
+;background-alt = #38444A
+;foreground = #FFF
+;foreground-alt = #FDF6E3
+primary = #EBCB8B
+secondary = #B48EAD
+trier = #A3BE8C
+;primary = #4DD0E1
+
+white = #FFFFFF
+black = #000000
+red = #EC7875
+pink = #EC6798
+purple = #BE78D1
+blue = #75A4CD
+cyan = #00C7DF
+teal = #00B19F
+green = #61C766
+lime = #B9C244
+yellow = #EBD369
+amber = #EDB83F
+orange = #E57C46
+brown = #AC8476
+gray = #9E9E9E
+indigo = #6C77BB
+blue-gray = #6D8895
+
 polar-1 = #2E3440
 polar-2 = #3B4252
 polar-3 = #434C5E
@@ -40,9 +71,8 @@ aurora-2 = #D08770
 aurora-3 = #EBCB8B
 aurora-4 = #A3BE8C
 aurora-5 = #B48EAD
+aurora-6 = #736c9e
 
-black = #000
-white = #FFF
 
 trans = #00000000
 semi-trans-black = #aa000000
@@ -53,41 +83,36 @@ semi-trans = #aa2E3440
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
 monitor-strict = false
-height = 30
+height = 25
 ; radius = 5.0
 fixed-center = true
 enable-ipc = true
-; bottom = true
-; offset-x = 0%
-; offset-y = 0%
-
-; background = ${colors.background}
-; foreground = ${colors.foreground}
+;bottom = true
+offset-x = 0%
+offset-y = 0%
 
 
-background = ${colors.polar-1}
-foreground = ${colors.snow-3}
+radius-top = 0.0
+radius-bottom = 0.0
 
-; line-size = 1
-; line-color = #000
 
-; module-margin-left = 1
-; module-margin-right = 1
+module-margin-left = 1
+module-margin-right = 0
 
-font-0 = "JetBrainsMono Nerd Font:style=Medium:size=8;2"
-font-1 = "JetBrainsMono Nerd Font:style=Bold:size=8;2"
-font-2 = "JetBrainsMono Nerd Font:size=10;3"
-font-3 = "JetBrainsMono Nerd Font:size=12;3"
-font-4 = "JetBrainsMono Nerd Font:size=19;4"
-font-5 = "FontAwesome:size=9;3"
 
-modules-left = dwm 
-modules-center = 
-modules-right =  round-left mpd wallpaper round-right margin round-left news mailbox round-right margin round-left wired wlan round-right margin round-left  memory cpu temperature xbacklight pulseaudio battery round-right margin round-left  weather date round-right  margin 
-; round-left-red session round-right-red margin
+background = ${colors.background}
+foreground = ${colors.foreground}
 
-tray-background = ${colors.polar-1}
-tray-position = right
+font-0 = "JetBrainsMono Nerd Font:style=Regular:size=9;2"
+font-1 = "Terminus:size=10;3"
+font-2= "FontAwesome:size=10;3"
+
+modules-left = sep dwm sep 
+modules-center = sep title sep wallpaper sep mpd
+modules-right = sep pulseaudio sep battery sep wired wlan sep date sep filesystem sep memory sep cpu sep temperature sep battery sep xbacklight
+
+tray-background = ${colors.background}
+tray-position = none
 tray-maxsize = 16
 
 cursor-click = pointer
@@ -96,7 +121,8 @@ cursor-scroll = ns-resize
 
 [module/dwm]
 type = internal/dwm
-format = <label-tags> <label-layout> <label-floating> <label-title>
+;format = <label-tags> <label-layout> <label-floating> <label-title>
+format = <label-tags> <label-layout> <label-floating>
 ; Path to dwm socket (default: /tmp/dwm.sock)
 ; socket-path = /tmp/dwm.sock
 
@@ -123,14 +149,15 @@ layout-scroll-reverse = false
 secondary-layout-symbol = [M]
 
 ; Separator in between shown tags
-; label-separator = |
+; label-separator =
 
 ; Title of currently focused window
 ; Available tokens:
 ;   %title%
 label-title = %title%
 label-title-padding = 2
-label-title-forefround = ${colors.polar-4}
+label-title-background = ${colors.background-alt}
+label-title-forefround = ${colors.foreground}
 label-title-maxlen = 20
 
 ; Symbol of current layout
@@ -138,9 +165,8 @@ label-title-maxlen = 20
 ;   %symbol%
 label-layout = %symbol%
 label-layout-padding = 2
-label-layout-foreground = #fff
-; label-layout-background = ${colors.primary}
-label-layout-background = ${colors.polar-2}
+label-layout-background = ${colors.background}
+label-layout-foreground = ${colors.foreground-alt}
 
 ; Text to show when currently focused window is floating
 label-floating = F
@@ -150,8 +176,9 @@ label-floating = F
 ;   %name%
 ; focused = Selected tag on focused monitor
 label-focused = %name%
-label-focused-background = ${colors.aurora-3}
-label-focused-underline = ${colors.aurora-3}
+label-focused-background = ${colors.primary}
+label-focused-underline = ${colors.primary}
+label-focused-foreground = ${colors.foreground}
 label-focused-padding = 2
 
 ; unfocused = Unselected tag on unselected monitor
@@ -160,19 +187,22 @@ label-unfocused-padding = 2
 
 ; visible = Unselected tag, but occupied tag on any monitor
 label-visible = %name%
-label-visible-background = ${colors.frost-4}
-label-visible-underline = ${colors.frost-4}
+label-visible-background = ${colors.secondary}
+label-visible-underline = ${colors.secondary}
+label-visible-foreground = ${colors.foreground}
 label-visible-padding = ${self.label-focused-padding}
 
 ; urgent = Unselected tag with window that has urgency hint set
 label-urgent = %name%
-label-urgent-background = ${colors.aurora-1}
+label-urgent-background = ${colors.red}
+label-urgent-foreground = ${colors.foreground}
 label-urgent-padding = 2
 
 ; empty = Unselected and unoccupied tag
 ; This can be set to an empty string to hide empty tags
 label-empty = %name%
-label-empty-background = ${colors.polar-1}
+;label-empty =
+label-empty-background = ${colors.background-alt}
 label-empty-padding = 2
 
 [module/xwindow]
@@ -181,105 +211,101 @@ label = %title%
 ; label = %title:0:30:...%
 
 [module/title]
-type = internal/xwindow
+type = internal/dwm
 
-format = <label>
-format-background = ${colors.polar-2}
-format-foreground = ${colors.aurora-3}
+label-title = %title%
+label-title-padding = 2
+label-title-background = ${colors.background}
+label-title-foreground = ${colors.foreground-alt}
+label-title-maxlen = 30
+
+format = <label-title>
 format-padding = 1
-label = %title%
-label-maxlen = 20
+format-prefix =
 
 [module/filesystem]
 type = internal/fs
 interval = 25
 
-mount-0 = /
+mount-0 = /home
 
-label-mounted = %{F}%{F-}: %percentage_used%%
-label-mounted-background= ${colors.polar-2}
-label-mounted-foreground = ${colors.snow-3}
-label-unmounted = %mountpoint% not mounted
-label-unmounted-background= ${colors.polar-2}
-label-unmounted-foreground = ${colors.snow-3}
+format-mounted = <label-mounted>
+format-mounted-prefix = 
+format-mounted-prefix-background = ${colors.indigo}
+format-mounted-prefix-padding = 1
+format-mounted-overline = ${colors.background}
+format-mounted-underline = ${colors.background}
+
+label-mounted = "%free%"
+label-mounted-background = ${colors.background-alt}
+label-mounted-padding = 1
+label-unmounted = "%mountpoint%: NA"
+label-unmounted-background = ${colors.background-alt}
+label-unmounted-padding = 1
 
 
 [module/mpd]
 type = internal/mpd
 interval = 1
 
-format-online = <icon-prev><icon-stop><toggle><icon-next><label-song>
+;format-online = <icon-prev><icon-stop><toggle><icon-next><label-song>
+format-online = <toggle><label-song><label-time>
 format-stopped = <icon-prev><toggle><icon-next>
 
-label-song = %title:0:17:...%
-label-song-background = ${colors.polar-2}
-label-song-foreground = ${colors.aurora-3}
+;label-song = %title:0:17:...%
+label-song =  "%title%"
+;label-song =  "%artist% - %title%"
+label-song-maxlen = 25
+label-song-ellipsis = true
+label-song-background = ${colors.background-alt}
 label-song-padding = 1
 
 label-time = %elapsed% / %total%
-label-time-background = ${colors.polar-2}
-label-time-foreground = ${colors.orange-a4}
+label-time-background = ${colors.background-alt}
 label-time-padding = 1
 
 icon-play = %{T4}契%{T-}
-icon-play-background = ${colors.polar-2}
-icon-play-foreground = ${colors.aurora-3}
+icon-play-background = ${colors.red}
+icon-play-foreground = ${colors.black}
 icon-play-padding = 1
 icon-pause = %{T4}%{T-}
-icon-pause-background = ${colors.polar-2}
-icon-pause-foreground = ${colors.aurora-3}
+icon-pause-background = ${colors.green}
+icon-pause-foreground = ${colors.black}
 icon-pause-padding = 1
 icon-stop = %{T4}栗%{T-}
-icon-stop-background = ${colors.polar-2}
-icon-stop-foreground = ${colors.aurora-1}
+icon-stop-background = ${colors.red}
+icon-stop-foreground = ${colors.black}
 icon-stop-padding = 1
 icon-prev = %{T4}玲%{T-}
-icon-prev-background = ${colors.polar-2}
-icon-prev-foreground = ${colors.aurora-4}
+icon-prev-background = ${colors.yellow}
+icon-prev-foreground = ${colors.black}
 icon-prev-padding = 1
 icon-next = %{T4}怜%{T-}
-icon-next-background = ${colors.polar-2}
-icon-next-foreground = ${colors.aurora-4}
+icon-next-background = ${colors.yellow}
+icon-next-foreground = ${colors.black}
 icon-next-padding = 1
 
 [module/xbacklight]
 type = internal/xbacklight
 
-format = <ramp>
-format-background = ${colors.polar-2}
-format-padding = 1
+format = <ramp><label>
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+
+; Available tokens:
+;   %percentage% (default)
 label = %percentage%%
+label-background = ${colors.background-alt}
 label-padding = 1
 
-bar-empty = 
-bar-fill = 
-bar-indicator = 
-bar-width = 10
-bar-empty-foreground = ${colors.polar-3}
-bar-indicator-foreground = ${colors.snow-1}
-bar-foreground-0 = ${colors.frost-3}
-bar-foreground-1 = ${colors.frost-3}
-bar-foreground-2 = ${colors.frost-2}
-bar-foreground-3 = ${colors.frost-2}
-bar-foreground-4 = ${colors.frost-2}
-bar-foreground-5 = ${colors.aurora-3}
-bar-foreground-6 = ${colors.aurora-3}
-
-ramp-0 = %{T3} %{T-}
-ramp-1 = %{T3} %{T-}
-ramp-2 = %{T3} %{T-}
-ramp-3 = %{T3} %{T-}
-ramp-4 = %{T3} %{T-}
-ramp-5 = %{T3} %{T-}
-ramp-6 = %{T3} %{T-}
-ramp-0-foreground = ${colors.frost-3}
-ramp-1-foreground = ${colors.frost-3}
-ramp-2-foreground = ${colors.frost-2}
-ramp-3-foreground = ${colors.frost-2}
-ramp-4-foreground = ${colors.aurora-3}
-ramp-5-foreground = ${colors.aurora-3}
-ramp-6-foreground = ${colors.aurora-3}
-
+; Only applies if <ramp> is used
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-background = ${colors.yellow}
+ramp-padding = 1
 [module/backlight-acpi]
 inherit = module/xbacklight
 type = internal/backlight
@@ -289,120 +315,162 @@ card = intel_backlight
 type = internal/cpu
 interval = 1
 
-format = <ramp-load><label>
-format-background = ${colors.polar-2}
-format-padding = 1
-label = %percentage:2%%
-label-foreground = ${colors.frost-3}
+; Available tags:
+;   <label> (default)
+;   <bar-load>
+;   <ramp-load>
+;   <ramp-coreload>
+;;format = <label> <ramp-coreload>
+format = <label>
+format-prefix = 
+format-prefix-background = ${colors.teal}
+format-prefix-padding = 1
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+
+; Available tokens:
+;   %percentage% (default) - total cpu load averaged over all cores
+;   %percentage-sum% - Cumulative load on all cores
+;   %percentage-cores% - load percentage for each core
+;   %percentage-core[1-9]% - load percentage for specific core
+label = "%percentage%%"
+label-background = ${colors.background-alt}
 label-padding = 1
 
-bar-load-empty = 
-bar-load-fill = 
-bar-load-indicator = 
-bar-load-width = 10
-bar-load-empty-foreground = ${colors.polar-3}
-bar-load-indicator-foreground = ${colors.snow-1}
-bar-load-foreground-0 = ${colors.frost-3}
-bar-load-foreground-1 = ${colors.frost-2}
-bar-load-foreground-2 = ${colors.aurora-4}
-bar-load-foreground-3 = ${colors.aurora-3}
-bar-load-foreground-4 = ${colors.aurora-1}
+; Spacing between individual per-core ramps
+;;ramp-coreload-spacing = 1
+;;ramp-coreload-0 = ${cpu.load0}
+;;ramp-coreload-1 = ${cpu.load1}
 
-ramp-load-0 = %{T3} %{T-}
-ramp-load-1 = %{T3} %{T-}
-ramp-load-2 = %{T3} %{T-}
-ramp-load-3 = %{T3} %{T-}
-ramp-load-4 = %{T3} %{T-}
-ramp-load-5 = %{T3} %{T-}
-ramp-load-0-foreground = ${colors.frost-3}
-ramp-load-1-foreground = ${colors.frost-2}
-ramp-load-2-foreground = ${colors.aurora-4}
-ramp-load-3-foreground = ${colors.aurora-3}
-ramp-load-4-foreground = ${colors.aurora-3}
-ramp-load-5-foreground = ${colors.aurora-1}
+;;ramp-load-0 = ${cpu.load0}
+;;ramp-load-1 = ${cpu.load1}
 
 [module/memory]
 type = internal/memory
 interval = 1
 
-format = <ramp-used><label>
-format-background = ${colors.polar-2}
-format-padding = 1
-label = %percentage_used:2%%
-label-foreground = ${colors.frost-3}
+; Available tags:
+;   <label> (default)
+;   <bar-used>
+;   <bar-free>
+;   <ramp-used>
+;   <ramp-free>
+;   <bar-swap-used>
+;   <bar-swap-free>
+;   <ramp-swap-used>
+;   <ramp-swap-free>
+format = <label>
+format-prefix = 
+format-prefix-background = ${colors.brown}
+format-prefix-padding = 1
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+
+; Available tokens:
+;   %percentage_used% (default)
+;   %percentage_free%
+;   %gb_used%
+;   %gb_free%
+;   %gb_total%
+;   %mb_used%
+;   %mb_free%
+;   %mb_total%
+;   %percentage_swap_used%
+;   %percentage_swap_free%
+;   %mb_swap_total%
+;   %mb_swap_free%
+;   %mb_swap_used%
+;   %gb_swap_total%
+;   %gb_swap_free%
+;   %gb_swap_used%
+
+label = "%gb_used%"
+label-background = ${colors.background-alt}
 label-padding = 1
 
-bar-used-empty = 
-bar-used-fill = 
-bar-used-indicator = 
-bar-used-width = 10
-bar-used-empty-foreground = ${colors.polar-3}
-bar-used-indicator-foreground = ${colors.snow-1}
-bar-used-foreground-0 = ${colors.frost-3}
-bar-used-foreground-1 = ${colors.frost-2}
-bar-used-foreground-2 = ${colors.aurora-4}
-bar-used-foreground-3 = ${colors.aurora-3}
-bar-used-foreground-4 = ${colors.aurora-1}
+; Only applies if <ramp-used> is used
+;;ramp-used-0 = ${memory.used0}
+;;ramp-used-1 = ${memory.used1}
+;;ramp-used-2 = ${memory.used2}
 
-ramp-used-0 = %{T3}﬙ %{T-}
-ramp-used-1 = %{T3}﬙ %{T-}
-ramp-used-2 = %{T3}﬙ %{T-}
-ramp-used-3 = %{T3}﬙ %{T-}
-ramp-used-4 = %{T3}﬙ %{T-}
-ramp-used-0-foreground = ${colors.frost-3}
-ramp-used-1-foreground = ${colors.frost-2}
-ramp-used-2-foreground = ${colors.aurora-4}
-ramp-used-3-foreground = ${colors.aurora-3}
-ramp-used-4-foreground = ${colors.aurora-1}
+; Only applies if <ramp-free> is used
+;;ramp-free-0 = ${memory.free0}
+;;ramp-free-1 = ${memory.free1}
+;;ramp-free-2 = ${memory.free2}
+
 
 
 [module/date]
 type = internal/date
-interval = 1
+interval = 1.0
 
 time = "%H:%M"
 time-alt = "%a, %b %d %H:%M:%S"
 
-format-background = ${colors.polar-2}
-format-foreground = ${colors.aurora-3}
-format-padding = 1
-format-prefix = %{T6}  %{T-}
-label = %{T2}%time%%{T-}
+; Available tags:
+;   <label> (default)
+format = <label>
+format-prefix = 神
+format-prefix-background = ${colors.amber}
+format-prefix-padding = 1
+format-overline = ${colors.background}
+format-underline = ${colors.background}
+
+; Available tokens:
+;   %date%
+;   %time%
+; Default: %date%
+label = %time%
+label-background = ${colors.background-alt}
+label-padding = 1
 
 [module/pulseaudio]
 type = internal/pulseaudio
 use-ui-max = false
 
-;format-volume = <ramp-volume> <bar-volume> <label-volume>
-format-volume = <ramp-volume> <label-volume>
-format-volume-background = ${colors.polar-2}
-format-volume-padding = 1
+interval = 5
+
+; Available tags:
+;   <label-volume> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-volume = <ramp-volume><label-volume>
+format-volume-overline = ${colors.background}
+format-volume-underline = ${colors.background}
+
+; Available tags:
+;   <label-muted> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-muted = <label-muted>
+format-muted-prefix = 
+format-muted-prefix-background = ${colors.red}
+format-muted-prefix-padding = 1
+format-muted-overline = ${colors.background}
+format-muted-underline = ${colors.background}
+
+; Available tokens:
+;   %percentage% (default)
 label-volume = %percentage%%
-label-volume-foreground = ${colors.frost-3}
+label-volume-background = ${colors.background-alt}
 label-volume-padding = 1
 
-format-muted-background = ${colors.polar-2}
-format-muted-padding = 1
-label-muted = %{T3}ﱝ %{T-}
-label-muted-foreground = ${colors.aurora-1}
+; Available tokens:
+;   %percentage% (default
+label-muted = "Muted"
+label-muted-foreground = ${colors.foreground}
+label-muted-background = ${colors.background-alt}
+label-muted-padding = 1
 
-bar-volume-empty = 
-bar-volume-fill = 
-bar-volume-indicator = 
-bar-volume-width = 10
-bar-volume-empty-foreground = ${colors.polar-3}
-bar-volume-indicator-foreground = ${colors.snow-1}
-bar-volume-foreground-0 = ${colors.frost-3}
-bar-volume-foreground-1 = ${colors.frost-2}
-bar-volume-foreground-2 = ${colors.frost-2}
-bar-volume-foreground-3 = ${colors.aurora-3}
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+ramp-volume-4 = 
+ramp-volume-background = ${colors.blue}
+ramp-volume-padding = 1
 
-ramp-volume-0 = %{T3}奄 %{T-}
-ramp-volume-1 = %{T3}奔 %{T-}
-ramp-volume-2 = %{T3} %{T-}
-ramp-volume-0-foreground = ${colors.frost-3}
-ramp-volume-1-foreground = ${colors.frost-2}
-ramp-volume-2-foreground = ${colors.aurora-3}
 
 click-right = pavucontrol&
 
@@ -439,26 +507,80 @@ bar-volume-empty-foreground = ${colors.foreground-alt}
 type = internal/battery
 battery = BAT0
 adapter = AC
-full-at = 98
 
-format-charging = <animation-charging> <label-charging>
-format-charging-background = ${colors.polar-2}
-format-charging-padding = 1
+full-at = 99
+
+; If an inotify event haven't been reported in this many
+; seconds, manually poll for new values.
+;
+; Needed as a fallback for systems that don't report events
+; on sysfs/procfs.
+;
+; Disable polling by setting the interval to 0.
+;
+; Default: 5
+poll-interval = 2
+
+; see "man date" for details on how to format the time string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+; Default: %H:%M:%S
+time-format = %H:%M
+
+; Available tags:
+;   <label-charging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-charging>
+format-charging = <label-charging>
+format-charging-prefix = 
+format-charging-prefix-background = ${colors.green}
+format-charging-prefix-padding = 1
+format-charging-overline = ${colors.background}
+format-charging-underline = ${colors.background}
+
+; Available tags:
+;   <label-discharging> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+;   <animation-discharging>
+format-discharging = <ramp-capacity><label-discharging>
+format-discharging-overline = ${colors.background}
+format-discharging-underline = ${colors.background}
+
+; Available tags:
+;   <label-full> (default)
+;   <bar-capacity>
+;   <ramp-capacity>
+format-full = <label-full>
+format-full-prefix = 
+format-full-prefix-background = ${colors.red}
+format-full-prefix-padding = 1
+format-full-overline = ${colors.background}
+format-full-underline = ${colors.background}
+
+; Available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current charge rate in watts)
 label-charging = %percentage%%
-label-charging-foreground = ${colors.frost-2}
+label-charging-background = ${colors.background-alt}
+label-charging-padding = 1
 
-format-discharging = <ramp-capacity> <label-discharging>
-format-discharging-background = ${colors.polar-2}
-format-discharging-padding = 1
+; Available tokens:
+;   %percentage% (default)
+;   %time%
+;   %consumption% (shows current discharge rate in watts)
 label-discharging = %percentage%%
-label-discharging-foreground = ${colors.frost-2}
+label-discharging-background = ${colors.background-alt}
+label-discharging-padding = 1
 
-format-full = <ramp-capacity> <label-full>
-format-full-background = ${colors.polar-2}
-format-full-padding = 1
-label-full = %percentage%%
-label-full-foreground = ${colors.frost-2}
+; Available tokens:
+;   %percentage% (default)
+label-full = Full
+label-full-background = ${colors.background-alt}
+label-full-padding = 1
 
+; Only applies if <ramp-capacity> is used
 ramp-capacity-0 = %{T3}%{T-}
 ramp-capacity-1 = %{T3}%{T-}
 ramp-capacity-2 = %{T3}%{T-}
@@ -469,55 +591,81 @@ ramp-capacity-6 = %{T3}%{T-}
 ramp-capacity-7 = %{T3}%{T-}
 ramp-capacity-8 = %{T3}%{T-}
 ramp-capacity-9 = %{T3}%{T-}
-ramp-capacity-0-foreground = ${colors.aurora-1}
-ramp-capacity-1-foreground = ${colors.aurora-1}
-ramp-capacity-2-foreground = ${colors.aurora-1}
-ramp-capacity-3-foreground = ${colors.aurora-4}
-ramp-capacity-4-foreground = ${colors.aurora-4}
-ramp-capacity-5-foreground = ${colors.aurora-4}
-ramp-capacity-6-foreground = ${colors.frost-2}
-ramp-capacity-7-foreground = ${colors.frost-2}
-ramp-capacity-8-foreground = ${colors.frost-2}
-ramp-capacity-9-foreground = ${colors.frost-2}
+ramp-capacity-0-foreground = ${colors.black}
+ramp-capacity-1-foreground = ${colors.black}
+ramp-capacity-2-foreground = ${colors.black}
+ramp-capacity-3-foreground = ${colors.black}
+ramp-capacity-4-foreground = ${colors.black}
+ramp-capacity-5-foreground = ${colors.black}
+ramp-capacity-6-foreground = ${colors.black}
+ramp-capacity-7-foreground = ${colors.black}
+ramp-capacity-8-foreground = ${colors.black}
+ramp-capacity-9-foreground = ${colors.black}
+ramp-capacity-background = ${colors.pink}
+ramp-capacity-padding = 1
 
-animation-charging-0 = %{T3}%{T-}
-animation-charging-1 = %{T3}%{T-}
-animation-charging-2 = %{T3}%{T-}
-animation-charging-3 = %{T3}%{T-}
-animation-charging-4 = %{T3}%{T-}
-animation-charging-5 = %{T3}%{T-}
-animation-charging-6 = %{T3}%{T-}
-animation-charging-framerate = 800
-animation-charging-0-foreground = ${colors.aurora-1}
-animation-charging-1-foreground = ${colors.aurora-1}
-animation-charging-2-foreground = ${colors.aurora-4}
-animation-charging-3-foreground = ${colors.aurora-4}
-animation-charging-4-foreground = ${colors.frost-2}
-animation-charging-5-foreground = ${colors.frost-2}
-animation-charging-6-foreground = ${colors.frost-2}
+; Only applies if <bar-capacity> is used
+;bar-capacity-width = 10
 
+; Only applies if <animation-charging> is used
+animation-charging-0 = 
+animation-charging-1 = 
+
+; Framerate in milliseconds
+animation-charging-framerate = 750
+
+; Only applies if <animation-discharging> is used
+;;animation-discharging-0 = ${battery.anim0}
+;;animation-discharging-1 = ${battery.anim1}
+
+; Framerate in milliseconds
+;animation-discharging-framerate = 500
 
 [module/temperature]
 type = internal/temperature
 thermal-zone = 0
 warn-temperature = 60
 
-format = <ramp> <label>
-format-background = ${colors.polar-2}
-format-padding = 1
-format-warn = <ramp> <label-warn>
-format-warn-padding = 1
-label = %temperature-c%
-label-foreground = ${colors.frost-2}
-label-warn = %temperature-c%
-label-warn-foreground = ${colors.aurora-3}
+; Available tags:
+;   <label> (default)
+;   <ramp>
+format = <ramp><label>
+format-overline = ${colors.background}
+format-underline = ${colors.background}
 
-ramp-0 = %{T3}%{T-}
-ramp-1 = %{T3}%{T-}
-ramp-2 = %{T3}%{T-}
-ramp-0-foreground = ${colors.frost-2}
-ramp-1-foreground = ${colors.frost-2}
-ramp-2-foreground = ${colors.aurora-3}
+; Available tags:
+;   <label-warn> (default)
+;   <ramp>
+format-warn = <ramp><label-warn>
+format-warn-overline = ${colors.background}
+format-warn-underline = ${colors.background}
+
+; Available tokens:
+;   %temperature% (deprecated)
+;   %temperature-c%   (default, temperature in °C)
+;   %temperature-f%   (temperature in °F)
+label = %temperature-c%
+label-background = ${colors.background-alt}
+label-padding = 1
+
+; Available tokens:
+;   %temperature% (deprecated)
+;   %temperature-c%   (default, temperature in °C)
+;   %temperature-f%   (temperature in °F)
+label-warn = "%temperature-c%"
+label-warn-background = ${colors.background-alt}
+label-warn-padding = 1
+
+; Requires the <ramp> tag
+; The icon selection will range from 0 to `warn-temperature`
+; with the current temperature as index.
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+ramp-background = ${colors.cyan}
+ramp-padding = 1
 
 [module/powermenu]
 type = custom/menu
@@ -596,9 +744,9 @@ type = custom/text
 click-left = $HOME/.config/polybar/scripts/wallpaper/wallpaper-bar.sh clickleft
 click-middle =$HOME/.config/polybar/scripts/wallpaper/wallpaper-bar.sh clickmiddle 
 click-right = $HOME/.config/polybar/scripts/wallpaper/wallpaper-bar.sh clickright
-content = %{T6}%{T-}
-content-background = ${colors.polar-2}
-content-foreground = ${colors.aurora-5}
+content = %{T6} %{T-}
+content-background = ${colors.background}
+content-foreground = ${colors.indigo}
 content-padding = 1
 
 [module/weather]
@@ -618,8 +766,8 @@ type = custom/script
 interval = 1800
 
 exec = news
-format-background = ${colors.polar-2}
-format-foreground = ${colors.frost-1}
+format-background = ${colors.background-alt}
+format-foreground = ${colors.foreground-alt}
 format-padding = 1
 ; format-prefix = %{T6}  %{T-}
 label = %{T2}%output%%{T-}
@@ -630,9 +778,9 @@ type = custom/script
 interval = 1800
 
 exec = mailbox
-format-background = ${colors.polar-2}
-format-foreground = ${colors.frost-1}
 format-padding = 1
+format-background = ${colors.background-alt}
+format-foreground = ${colors.foreground-alt}
 ; format-prefix = %{T6}  %{T-}
 label = %{T2}%output%%{T-}
 
@@ -642,34 +790,198 @@ type = internal/network
 interface = enp59s0
 interval = 1.0
 
-format-connected = <label-connected>
-format-connected-background = ${colors.polar-2}
-format-connected-padding = 1
-label-connected = %{T6}W  %{T-} %{T2}%downspeed%%{T-}
-label-connected-foreground = ${colors.aurora-4}
+; Test connectivity every Nth update
+; A value of 0 disables the feature
+; NOTE: Experimental (needs more testing)
+; Default: 0
+;ping-interval = 3
 
+; @deprecated: Define min width using token specifiers (%downspeed:min% and %upspeed:min%)
+; Minimum output width of upload/download rate
+; Default: 3
+;;udspeed-minwidth = 5
+
+; Accumulate values from all interfaces
+; when querying for up/downspeed rate
+; Default: false
+accumulate-stats = true
+
+; Consider an `UNKNOWN` interface state as up.
+; Some devices have an unknown state, even when they're running
+; Default: false
+unknown-as-up = true
+
+; Available tags:
+;   <label-connected> (default)
+;   <ramp-signal>
+format-connected = <ramp-signal><label-connected>
+;format-connected-prefix = 
+format-connected-overline = ${colors.background}
+format-connected-underline = ${colors.background}
+
+; Available tags:
+;   <label-disconnected> (default)
 format-disconnected = <label-disconnected>
-format-disconnected-background = ${colors.polar-2}
-format-disconnected-padding = 1
-label-disconnected = %{T6}W%{T-}
-label-disconnected-foreground = ${colors.aurora-1}
+format-disconnected-prefix = 
+format-disconnected-prefix-background = ${colors.orange}
+format-disconnected-prefix-padding = 1
+format-disconnected-overline = ${colors.background}
+format-disconnected-underline = ${colors.background}
+
+; Available tags:
+;   <label-connected> (default)
+;   <label-packetloss>
+;   <animation-packetloss>
+;;format-packetloss = <animation-packetloss> <label-connected>
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+; Default: %ifname% %local_ip%
+label-connected = "%{A1:networkmanager_dmenu &:}%essid%%{A}"
+label-connected-background = ${colors.background-alt}
+label-connected-padding = 1
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+; Default: (none)
+label-disconnected = "%{A1:networkmanager_dmenu &:}Offline%{A}"
+label-disconnected-background = ${colors.background-alt}
+label-disconnected-padding = 1
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+; Default: (none)
+;label-packetloss = %essid%
+;label-packetloss-foreground = #eefafafa
+
+; Only applies if <ramp-signal> is used
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-background = ${colors.purple}
+ramp-signal-padding = 1
+
+; Only applies if <animation-packetloss> is used
+;;animation-packetloss-0 = ⚠
+;;animation-packetloss-0-foreground = #ffa64c
+;;animation-packetloss-1 = ⚠
+;;animation-packetloss-1-foreground = #000000
+; Framerate in milliseconds
+;;animation-packetloss-framerate = 500
 
 [module/wlan]
 type = internal/network
 interface = wlp0s20f3
 interval = 1.0
 
-format-connected = <label-connected>
-format-connected-background = ${colors.polar-2}
-format-connected-padding = 1
-label-connected = %{T6}  %{T-} %{T2}%downspeed%%{T-}
-label-connected-foreground = ${colors.aurora-4}
+; Test connectivity every Nth update
+; A value of 0 disables the feature
+; NOTE: Experimental (needs more testing)
+; Default: 0
+;ping-interval = 3
 
+; @deprecated: Define min width using token specifiers (%downspeed:min% and %upspeed:min%)
+; Minimum output width of upload/download rate
+; Default: 3
+;;udspeed-minwidth = 5
+
+; Accumulate values from all interfaces
+; when querying for up/downspeed rate
+; Default: false
+accumulate-stats = true
+
+; Consider an `UNKNOWN` interface state as up.
+; Some devices have an unknown state, even when they're running
+; Default: false
+unknown-as-up = true
+
+; Available tags:
+;   <label-connected> (default)
+;   <ramp-signal>
+format-connected = <ramp-signal><label-connected>
+;format-connected-prefix = 
+format-connected-overline = ${colors.background}
+format-connected-underline = ${colors.background}
+
+; Available tags:
+;   <label-disconnected> (default)
 format-disconnected = <label-disconnected>
-format-disconnected-background = ${colors.polar-2}
-format-disconnected-padding = 1
-label-disconnected = %{T6}%{T-}
-label-disconnected-foreground = ${colors.aurora-1}
+format-disconnected-prefix = 
+format-disconnected-prefix-background = ${colors.orange}
+format-disconnected-prefix-padding = 1
+format-disconnected-overline = ${colors.background}
+format-disconnected-underline = ${colors.background}
+
+; Available tags:
+;   <label-connected> (default)
+;   <label-packetloss>
+;   <animation-packetloss>
+;;format-packetloss = <animation-packetloss> <label-connected>
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+; Default: %ifname% %local_ip%
+label-connected = "%{A1:networkmanager_dmenu &:}%essid%%{A}"
+label-connected-background = ${colors.background-alt}
+label-connected-padding = 1
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+; Default: (none)
+label-disconnected = "%{A1:networkmanager_dmenu &:}Offline%{A}"
+label-disconnected-background = ${colors.background-alt}
+label-disconnected-padding = 1
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+; Default: (none)
+;label-packetloss = %essid%
+;label-packetloss-foreground = #eefafafa
+
+; Only applies if <ramp-signal> is used
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-background = ${colors.purple}
+ramp-signal-padding = 1
+
+; Only applies if <animation-packetloss> is used
+;;animation-packetloss-0 = ⚠
+;;animation-packetloss-0-foreground = #ffa64c
+;;animation-packetloss-1 = ⚠
+;;animation-packetloss-1-foreground = #000000
+; Framerate in milliseconds
+;;animation-packetloss-framerate = 500
 
 [settings]
 screenchange-reload = true
@@ -680,4 +992,8 @@ screenchange-reload = true
 ;pseudo-transparency = false
 
 
-; vim:ft=dosini
+[module/sep]
+type = custom/text
+content = |
+content-background = ${color.background}
+content-foreground = ${color.background}

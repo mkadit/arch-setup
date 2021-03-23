@@ -1,29 +1,25 @@
+/*
+ *
+ * Author  : Aditya Shakya
+ * Mail    : adi1090x@gmail.com
+ * Github  : @adi1090x
+ * Twitter : @adi1090x
+ *
+ */
+
 configuration {
-	font:							"JetBrainsMono Nerd Font Medium  12";
+	font:							"Terminus 9";
     show-icons:                     true;
 	icon-theme: 					"Papirus";
     display-drun: 					"";
     drun-display-format:            "{name}";
     disable-history:                false;
-    fullscreen:                     true;
+    fullscreen:                     false;
 	hide-scrollbar: 				true;
 	sidebar-mode: 					false;
-    modi: "drun,,ssh,window,run";
-    combi-modi: "drun,ssh,window,run";
-    matching: "fuzzy";
 }
 
 @import "colors.rasi"
-
-* {
-  al:   #00000000;
-  bg:   #2f343fFF;
-  bga:  #C4C7C5FF;
-  fga:  #C4C7C5FF;
-  fg:   #1C1E20FF;
-  ac:   #B4BC67FF;
-  se:   #B4BC6740;
-}
 
 window {
     transparency:                   "real";
@@ -32,7 +28,7 @@ window {
 	border:							0px 0px 0px 0px;
 	border-color:					@ac;
     border-radius:                  0px;
-	width:							800px;
+	width:							350px;
     location:                       center;
     x-offset:                       0;
     y-offset:                       0;
@@ -40,9 +36,17 @@ window {
 
 prompt {
     enabled: 						true;
-	padding: 						6px 7px 4px 7px;
-	background-color: 				@ac;
+	padding: 						0px 0px 0px 10px;
+	background-color: 				@bga;
 	text-color: 					@fg;
+}
+
+textbox-prompt-colon {
+	padding: 						0px;
+	background-color: 				@bga;
+	text-color: 					@ac;
+	expand: false;
+	str: "";
 	font:							"feather 8";
 }
 
@@ -53,28 +57,28 @@ entry {
     expand:                         true;
     horizontal-align:               0;
     placeholder:                    "Search...";
-	padding: 						6px;
+	padding: 						0px 0px 0px 5px;
     blink:                          true;
 }
 
 inputbar {
-	children: 						[ prompt, entry ];
+	children: 						[ textbox-prompt-colon, prompt ];
     background-color:               @bga;
     text-color:                     @fg;
     expand:                         false;
-	border:							0px;
+	border:							0px 0px 1px 0px;
     border-radius:                  0px;
-	border-color:					@ac;
+	border-color:					@se;
     margin:                         0px;
-    padding:                        0px;
+    padding:                        10px;
 }
 
 listview {
     background-color:               @al;
     padding:                        0px;
-    columns:                        2;
-    lines:                          8;
-    spacing:                        6px;
+    columns:                        1;
+    lines:                          5;
+    spacing:                        5px;
     cycle:                          true;
     dynamic:                        true;
     layout:                         vertical;
@@ -86,16 +90,16 @@ mainbox {
     border-radius:                  0px;
 	border-color:					@ac;
     children:                       [ inputbar, listview ];
-    spacing:                       	6px;
-    padding:                        6px;
+    spacing:                       	5px;
+    padding:                        5px;
 }
 
 element {
     background-color:               @al;
-    text-color:                     @fga;
+    text-color:                     @fg;
     orientation:                    horizontal;
     border-radius:                  0px;
-	padding: 						3px;
+	padding: 						8px 8px 8px -20px;
 }
 
 element-icon {
@@ -112,7 +116,7 @@ element-text {
 
 element selected {
     background-color:               @se;
-    text-color:                     @fga;
+    text-color:                     @bg;
 	border:							0px 0px 0px 0px;
     border-radius:                  0px;
     border-color:                  	@ac;

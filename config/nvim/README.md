@@ -3,8 +3,8 @@
 If you decided to use this setup then there are a few things you
 should know in order to make you digest all of it a lot easier.
 
-
 #Table of Content
+
 <!-- vim-markdown-toc GFM -->
 
 * [The Appetiser](#the-appetiser)
@@ -12,7 +12,7 @@ should know in order to make you digest all of it a lot easier.
     * [coc.nvim](#cocnvim)
         * [LSP](#lsp)
         * [snippets](#snippets)
-    * [fzf](#fzf)
+    * [vim-clap](#vim-clap)
     * [Emmet](#emmet)
     * [tpope's Plugins](#tpopes-plugins)
     * [Polyglot / nvim-treesitter](#polyglot--nvim-treesitter)
@@ -29,23 +29,28 @@ should know in order to make you digest all of it a lot easier.
 * [How to use it?](#how-to-use-it)
 
 <!-- vim-markdown-toc -->
+
 ## The Appetiser
+
 Nothing big and fancy just a few basic one.
+
 1. neovim - this is due to the plugin treesitter. If you decide to not use it then feel free to use normal vim.
 2. Node - This is for the autocompletion coc.nvim, again if you don't want to use the plugin mentioned then feel free to skip it.
-3. fzf - Fuzzy finder, I don't know why you want to skip this but if you do then don't install it.
+3. vim-clap - Fuzzy finder, I don't know why you want to skip this but if you do then don't install it.
 4. vifm - Terminal file manager, once again skip it if you don't plant on using one.
 5. Vim-Plug - Vim Plugin manager, you can change this with any vim plugin manager you want.
 
 With that being said and done I'll be covering the things that exist on this particular vim-setup.
 
 ## The Main Dish
+
 There are quite a lot of plugins I used, the sheer number of lines makes it
 pretty daunting (and maybe a little bit bloated). But overall there are only a
 few plugins that I often used or the ones I deemed as important, the rest are
-either superficial or just an extension.  Here's a list of the important ones.
+either superficial or just an extension. Here's a list of the important ones.
 
 ### coc.nvim
+
 Arguably the most important plugin of them all coc.nvim is an intellisense that
 will make the coding life a lot easier. It works the same way as how VSCode
 works, you can install extensions for it so that an LSP of a programming
@@ -62,6 +67,7 @@ But again it's powerful. So powerful to the point I don't care about the
 drawbacks at all (well most of the time).
 
 #### LSP
+
 Once you manage to make coc.nvim accepts your programming language of choice
 lsp you'll gain a steadfast and powerful ally in your daily wars with editing
 files. The basic ones like auto complete function or showing the methods that
@@ -86,9 +92,10 @@ at the instance where you change it but all the places where the variable was
 referenced at. Or the many methods available in CocCommand.
 
 #### snippets
+
 This isn't exactly a coc.nvim only thing but since I installed snippets in
 coc.nvim by installing the extension coc-snippets I might as well as add it to
-this subsection.  Snippets are basically alias you write in order to make it
+this subsection. Snippets are basically alias you write in order to make it
 transform to something else. You can check out the many snippets that exist by
 pressing `<leader> fm` to fuzzy search all the snippets available for the
 particular filetype you're in. If you want to edit it you can take advantage of
@@ -97,22 +104,26 @@ snippets.editSnippets to create a snippet.
 
 If you're lazy you can just add other people snippets.
 
-### fzf
+### vim-clap
+
 Another important plugin, or rather program since this is not a vim exclusive
-thing. FZF is a fuzzy finder that's capable of searching for folders and files
+thing. Vim-Clap is a fuzzy finder that's capable of searching for folders and files
 quickly. You can of course extend this powerful utility by installing Rg,
-making it so not only can you fuzzy search for file/folder names buat you can
+making it so not only can you fuzzy search for file/folder names but you can
 also look for it's contents.
 
-I use this pretty often since when I'm programming I need tsearch for a file
-and open in. I also use fzf whenever I need to find a a file that has a
+I use this pretty often since when I'm programming I need search for a file
+and open in. I also use vim-clap whenever I need to find a file that has a
 specific file but I don't really remember where it is. There's also the case
 where I need to go through the list of buffers, history commands, etc.
 
 You get the idea.
 
+You can of course use FZF or ctrl-p, I personally use vim-clap because it looks
+cool (plus it integrates with windows)
 
 ### Emmet
+
 Yeah go figured. Emmet is just that wonderful, just type everthing in a single
 ine then press `,` twice in a quick sucession and then like magic a whole bunch
 of elements suddenly summoned. Need I to explain more?
@@ -120,12 +131,12 @@ of elements suddenly summoned. Need I to explain more?
 With this powerful utility you can surf your way through directories and files
 as easily. Want to go to a file? Press `<leader> fi` and fuzzy search it. Want
 to look through the files you've opened up in a buffer? `<leader> fbl` is all
-you need to type. See snippets? `<leader> fs`. Switch git branches? `<leader>
-gb`. Search history commands? `<leader> fh`.  You can even choose to swtich
+you need to type. See snippets? `<leader> fs`. Switch git branches? `<leader> gb`. Search history commands? `<leader> fh`. You can even choose to swtich
 colorscheme by pressing `<leader> fco`. There's also a few others but I figured
 you'll read them if you're curious.
 
 ### tpope's Plugins
+
 Tpope's Plugin are useful, it'll make life much much easier (at least for me).
 Having trouble commenting your a line of code? vim-commentary got you cover.
 Want to change that double quotes to a single, vim surround to the rescue. Want
@@ -142,12 +153,14 @@ That's it for the core. The rest of the plugins are just things that I would
 use seldomly, or simply for pure Aesthetics :D.
 
 ### Polyglot / nvim-treesitter
+
 Reading in plain white text is a nightmare (at least for me). I don't know
 which one is variable, which one is a class which one's a method. Luckily
 Polyglot and nvim_treesitter got me covered on this part. Although you'll need
 to upgrade to nvim-nightly if you want to installed the latter.
 
 ## The Sidedish
+
 I've already covered the core plugins. The ones I often use and deem are
 important but what about the rest? Well they're plugins that I found to be
 quite handy but not used as many or I deem as important as the the previous
@@ -155,6 +168,7 @@ mentioned plugins. They're just there to make life a lot simpler, here's a list
 of them:
 
 ### Defx
+
 Tree explorer are kind of a hit and miss for me. On one hand it can be a pain
 to navigate through them on the other hand they can serve as a reference for
 your list of files in a project, which is nice since I tend to forget what
@@ -170,6 +184,7 @@ more importantly doesn't decided to go on a vacation when I opened up a large
 project.
 
 ### Vista
+
 Sometimes in projects there would comes a time where you would have one single
 file consisting of many method (or even classes) where the total line for them
 all would reach 300 or more. Sure COC ability to Go to definition allows me to
@@ -183,6 +198,7 @@ change to anything else. Plus it's interegation with LSP makes it even less
 appealing to move on.
 
 ### Startify
+
 There would comes a time where I would like to just open Vim and you know just
 go to a session and load all the files in that sessions. Of course you can do
 this with vim innate function `mks (path)` and source them when you need it.
@@ -192,6 +208,7 @@ I previously opened or in my current working directory. It also helps that I
 can make it look cool, kinda like a glorified logins screen.
 
 ### VimWiki
+
 You know how you would lose track of what you're suppose to do when you boot up
 your computer? Or that moment where you would forgot where you last left off in
 your project before you decided to go and shut the computer down to play some
@@ -207,6 +224,7 @@ There's other stuff as well like notes, diaries, etc. But you'll probabl
 figure it on your own.
 
 ### Undotree
+
 There will be that moment where you just want to go back to a state before you
 amde changes but you've already gone too far. When that happens instead of
 using `u` for an immesurable amount of time you can just type `<leader>eu` to
@@ -217,12 +235,14 @@ current version is just a cherry on top of it.
 ## Aesthetics
 
 ### awesome-vim-colorscheme/sonokai
+
 They're colorscheme, that's it. Maybe I went overboard looking at the many
 colorschemes I have when I press `<leader>fco`, but I got bored of colorschemes
 pretty quickly so I tend to change it once in a while. You can just unsintall
 it if you want though.
 
 ### Lightline
+
 You know how your line above the command line where it shows what mode you're
 on what line you're on etc? Yeah, I don't really like how it just feels empty
 hence the reason I installed Lightline to make it all colorful and not boring
@@ -234,9 +254,11 @@ thing but the former is for tmux while the latter is to make the buffers you
 have lined up on top.
 
 ### Nerdfont.vim
+
 Plugins for to make nerfont works in vim. That's it.
 
 ## How to use it?
+
 Technically you can view this when you press leader key (which is space) or
 simply view the vimrc, but I figured I'll give you a quick rundown for the
 useful stuffs and how to use them since I guess you'll be confused on how to
@@ -246,7 +268,7 @@ Open up vim, if you choose to open it with no file then a startup page will
 show up consisting of the files in your current directory, history of opened
 files, bookmarked files, and sessions. Open up a file by either selecting a
 file/session, or if you would use Defx to open a tree explorer by pressing
-`<leader>n` or if you know where the file is use FZF and search for the file by
-pressing `<leader>fi` and choose the file you want to edit.
+`<leader>n` or if you know where the file is use Vim-Clap and search for the file by
+pressing `<leader>ff` and choose the file you want to edit.
 
 Once you go to a file you can edit it as usual.
