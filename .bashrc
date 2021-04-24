@@ -1,5 +1,5 @@
 source /etc/profile
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-source /home/mkaditya/.config/broot/launcher/bash/br
+[[ -f $HOME/.bash_aliases ]] && . ~/.bash_aliases
+[[ -f $HOME/.bash_profile ]] && . ~/.bash_profile
+source "$HOME/.cargo/env"

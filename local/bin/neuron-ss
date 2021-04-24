@@ -1,0 +1,1 @@
+maim -s $HOME/Documents/notes/static/pic-selected-"$(date '+%y%m%d-%H%M-%S').png"
